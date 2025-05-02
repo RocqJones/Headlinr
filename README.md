@@ -3,16 +3,16 @@
 
 **Headlinr** is a modern, cross-platform news app built with Kotlin Multiplatform Mobile (KMM). It provides users with the latest headlines and breaking stories from around the world in real time. Powered by [NewsAPI](https://newsapi.org/), Headlinr aggregates top news from multiple reliable sources and offers a clean, intuitive reading experience across Android and iOS.
 
-The app allows users to filter news by country and category, view article details, and stay informed even when offline (upcoming). It’s designed with simplicity, speed, and personalization in mind — making it the ideal daily companion for staying in the loop.
+The app allows users to filter news by country and category, view article details, and stay informed even when offline (upcoming). It’s designed with simplicity, speed, and personalization in mind, making it the ideal daily companion for staying in the loop.
 
 ---
 
-## ✨ Features (Phase 1)
+## ✨ Features
 - Display latest news headlines
 - View full article details
-- Filter by country (Drop-down)
-- Filter by topic/category (Bottom Sheet)
-- View list of news sources
+- Filter by country
+- Filter by topic/category
+- View the list of news sources
 - Offline screen for network loss
 
 ---
@@ -20,12 +20,12 @@ The app allows users to filter news by country and category, view article detail
 ## 🗺️ Project Roadmap
 
 **Phase 1 – Core Features**
-- Show latest news list.
+- Show the latest news list.
 - Can view more details from headlines.
-- Filter by relevant country (DropDown).
+- Filter by relevant country.
 - Filter by topics. (Bottom sheets).
 - Show Sources.
-- Offline screen.
+- Offline feature.
 
 **Phase 2 – Personalization & Persistence**
 - Subscribe to breaking news and topics via notifications.
@@ -34,7 +34,7 @@ The app allows users to filter news by country and category, view article detail
 - Introduce offline SQLDelight support.
 
 **Phase 3 – Discovery & Automation**
-- Rollout search functionality for specific news or topics.
+- Roll out search functionality for specific news or topics.
 - Introduce voice search as a bonus feature.
 - Automate publishing for both Android and iOS.
 
