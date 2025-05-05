@@ -1,4 +1,4 @@
-package com.zonkesoft.headlinr.android
+package com.zonkesoft.headlinr.android.ui.screens
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.zonkesoft.headlinr.Greeting
+import com.zonkesoft.headlinr.android.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
