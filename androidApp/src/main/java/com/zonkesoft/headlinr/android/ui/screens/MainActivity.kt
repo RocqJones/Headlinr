@@ -1,17 +1,24 @@
 package com.zonkesoft.headlinr.android.ui.screens
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.zonkesoft.headlinr.Greeting
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.zonkesoft.headlinr.android.models.Screen
 import com.zonkesoft.headlinr.android.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -20,7 +27,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GreetingView(Greeting().greet())
+                    NavigationGraph()
                 }
             }
         }
@@ -28,14 +35,40 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun GreetingView(text: String) {
-    Text(text = text)
+fun NavigationGraph() {
+    val currentContext = LocalContext.current
+    val navController = rememberNavController()
+
+    NavHost(
+        navController, startDestination = Screen.SplashScreen.route
+    ) {
+        composable(Screen.SplashScreen.route) {
+            SplashScreen(navController)
+        }
+        composable(Screen.HomeScreen.route) {
+            HomeScreen(navController)
+        }
+    }
 }
 
-@Preview
+@Preview(
+    showSystemUi = true,
+    showBackground = true,
+    widthDp = 450,
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    name = "Light"
+)
+@Preview(
+    showSystemUi = true,
+    showBackground = true,
+    widthDp = 450,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "Dark"
+)
+
 @Composable
-fun DefaultPreview() {
+fun NavigationGraphPreview() {
     MyApplicationTheme {
-        GreetingView("Hello, Android!")
+        NavigationGraph()
     }
 }
