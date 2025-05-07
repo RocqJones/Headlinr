@@ -38,7 +38,7 @@ fun SplashScreen(navController: NavHostController) {
             Image(
                 painter = painterResource(id = R.mipmap.logo),
                 contentDescription = stringResource(R.string.icon),
-                modifier = Modifier.size(width = 150.dp, height = 150.dp)
+                modifier = Modifier.size(width = 300.dp, height = 300.dp)
             )
         }
     }
