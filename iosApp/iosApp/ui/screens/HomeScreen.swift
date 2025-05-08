@@ -8,8 +8,12 @@
 import SwiftUI
 import shared
 
-struct HomeScreen {
+struct HomeScreen: View {
     var body: some View {}
 }
 
-struct
+struct HomeScreen_Previews : PreviewProvider {
+    static var previews: some View {
+        HomeScreen()
+    }
+}
