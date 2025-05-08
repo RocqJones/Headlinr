@@ -1,4 +1,4 @@
-package com.zonkesoft.headlinr.android
+package com.zonkesoft.headlinr.android.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
