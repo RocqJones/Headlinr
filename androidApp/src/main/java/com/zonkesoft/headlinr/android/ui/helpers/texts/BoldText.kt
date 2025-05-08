@@ -18,7 +18,7 @@ fun BoldText(
     text: String,
     textColor: Color,
     fontSize: TextUnit,
-    alignText: TextAlign?,
+    textAlign: TextAlign?,
     modifier: Modifier = Modifier
 ) {
     val style = TextStyle(
@@ -35,6 +35,6 @@ fun BoldText(
         style = style,
         modifier = modifier,
         fontFamily = fontFamily,
-        textAlign = alignText ?: TextAlign.Start
+        textAlign = textAlign ?: TextAlign.Start
     )
 }

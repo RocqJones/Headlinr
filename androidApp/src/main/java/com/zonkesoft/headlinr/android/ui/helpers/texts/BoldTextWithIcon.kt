@@ -24,7 +24,7 @@ fun BoldTextWithIcon(
     icon: Painter,
     textColor: Color,
     fontSize: TextUnit,
-    alignText: TextAlign?,
+    textAlign: TextAlign?,
     hasBorder: Boolean = false,
     iconColor: Color = textColor
 ) {
@@ -56,7 +56,7 @@ fun BoldTextWithIcon(
             text = text,
             textColor = textColor,
             fontSize = fontSize,
-            alignText = alignText
+            textAlign = textAlign
         )
     }
 }

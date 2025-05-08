@@ -1,14 +1,16 @@
 package com.zonkesoft.headlinr.android.ui.screens
 
 import android.content.res.Configuration
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.zonkesoft.headlinr.android.ui.theme.MyApplicationTheme
 
 @Composable
-fun HomeScreen(navController: NavHostController) {
+fun HomeScreen(navController: NavHostController, textColor: Color, backgroundColor: Color) {
 }
 
 @Preview(
@@ -29,6 +31,9 @@ fun HomeScreen(navController: NavHostController) {
 @Composable
 fun HomeScreenPreview() {
     MyApplicationTheme {
-        HomeScreen(rememberNavController())
+        HomeScreen(rememberNavController(),
+            MaterialTheme.colorScheme.onBackground,
+            MaterialTheme.colorScheme.background
+        )
     }
 }

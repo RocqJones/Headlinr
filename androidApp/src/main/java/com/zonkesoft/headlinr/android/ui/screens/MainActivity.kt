@@ -37,16 +37,18 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun NavigationGraph() {
     val currentContext = LocalContext.current
+    val textColor = MaterialTheme.colorScheme.onBackground
+    val backgroundColor = MaterialTheme.colorScheme.background
     val navController = rememberNavController()
 
     NavHost(
         navController, startDestination = Screen.SplashScreen.route
     ) {
         composable(Screen.SplashScreen.route) {
-            SplashScreen(navController)
+            SplashScreen(navController, textColor, backgroundColor)
         }
         composable(Screen.HomeScreen.route) {
-            HomeScreen(navController)
+            HomeScreen(navController, textColor, backgroundColor)
         }
     }
 }
@@ -54,14 +56,12 @@ fun NavigationGraph() {
 @Preview(
     showSystemUi = true,
     showBackground = true,
-    widthDp = 450,
     uiMode = Configuration.UI_MODE_NIGHT_NO,
     name = "Light"
 )
 @Preview(
     showSystemUi = true,
     showBackground = true,
-    widthDp = 450,
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     name = "Dark"
 )
