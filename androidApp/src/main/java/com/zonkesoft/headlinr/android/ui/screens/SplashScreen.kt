@@ -87,7 +87,6 @@ fun SplashScreen(
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     name = "Dark"
 )
-
 @Composable
 fun SplashScreenPreview() {
     MyApplicationTheme {
