@@ -1,36 +1,31 @@
-package com.zonkesoft.headlinr.android.ui.helpers.texts
+package com.zonkesoft.headlinr.android.ui.common.texts
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.TextUnit
 import androidx.core.content.res.ResourcesCompat
 import com.zonkesoft.headlinr.android.R
 
 @Composable
-fun RegularText(
+fun ExtraBoldText(
     text: String,
     textColor: Color,
     fontSize: TextUnit,
-    textAlign: TextAlign?= TextAlign.Start,
-    modifier: Modifier = Modifier,
-    textDecoration: TextDecoration? = null,
+    textAlign: TextAlign?
 ) {
     val style = TextStyle(
         color = textColor,
-        fontWeight = FontWeight.Normal,
-        fontSize = fontSize,
-        textDecoration = textDecoration
+        fontWeight = FontWeight.Bold,
+        fontSize = fontSize
     )
     val fontFamily: FontFamily? = ResourcesCompat.getFont(
-        LocalContext.current.applicationContext, R.font.poppins_regular
+        LocalContext.current.applicationContext, R.font.poppins_extra_bold
     )?.let { font -> FontFamily(font) }
 
     Text(

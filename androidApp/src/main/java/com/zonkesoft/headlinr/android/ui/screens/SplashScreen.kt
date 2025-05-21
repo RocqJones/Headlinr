@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,24 +21,32 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.zonkesoft.headlinr.android.R
-import com.zonkesoft.headlinr.android.models.Screen
-import com.zonkesoft.headlinr.android.ui.helpers.texts.BoldText
-import com.zonkesoft.headlinr.android.ui.helpers.texts.MediumText
+import com.zonkesoft.headlinr.android.di.viewModelsModule
+import com.zonkesoft.headlinr.android.ui.navigation.Screen
+import com.zonkesoft.headlinr.android.ui.common.spacers.SpacerCommon
+import com.zonkesoft.headlinr.android.ui.common.texts.BoldText
+import com.zonkesoft.headlinr.android.ui.common.texts.MediumText
 import com.zonkesoft.headlinr.android.ui.theme.MyApplicationTheme
+import com.zonkesoft.headlinr.data.vm.InterfaceViewModel
 import kotlinx.coroutines.delay
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun SplashScreen(
     navController: NavHostController,
     textColor: Color,
-    backgroundColor: Color
+    backgroundColor: Color,
+    interfaceViewModel: InterfaceViewModel = getViewModel()
 ) {
+    val screenContent = interfaceViewModel.splashScreenModel.collectAsState()
 
     LaunchedEffect(Unit) {
-        delay(3000)
+        delay(screenContent.value.delay ?: 3000L)
         navController.navigate(Screen.HomeScreen.route)
     }
 
@@ -59,18 +68,20 @@ fun SplashScreen(
             modifier = Modifier.align(Alignment.BottomStart).padding(bottom = 32.dp),
         ) {
             BoldText(
-                text = stringResource(R.string.app_name),
+                text = screenContent.value.header ?: stringResource(R.string.app_name),
                 textColor = textColor,
                 fontSize = 28.sp,
                 textAlign = TextAlign.Start,
             )
 
             MediumText(
-                text = stringResource(R.string.your_world_your_headlines_your_way),
+                text = screenContent.value.subHeader.orEmpty(),
                 textColor = textColor,
                 fontSize = 16.sp,
                 textAlign = TextAlign.Start
             )
+
+            SpacerCommon(16, isVertical = true)
         }
     }
 }
@@ -91,9 +102,10 @@ fun SplashScreen(
 fun SplashScreenPreview() {
     MyApplicationTheme {
         SplashScreen(
-            rememberNavController(),
+            navController = rememberNavController(),
             MaterialTheme.colorScheme.onBackground,
-            MaterialTheme.colorScheme.background
+            MaterialTheme.colorScheme.background,
+            viewModel()
         )
     }
 }

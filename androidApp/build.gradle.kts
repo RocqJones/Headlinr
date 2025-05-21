@@ -45,4 +45,8 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.lottie.compose)
     implementation(libs.androidx.navigation.compose)
+
+    // DI
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
 }

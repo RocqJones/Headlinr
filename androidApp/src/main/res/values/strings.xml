@@ -2,5 +2,12 @@
 <resources>
     <string name="app_name">Headlinr</string>
     <string name="icon">icon</string>
-    <string name="your_world_your_headlines_your_way">Your world. Your headlines. Your way.</string>
+    <string name="for_you">For You</string>
+    <string name="menu">Menu</string>
+    <string name="topics">Topics</string>
+    <string name="quick_actions">Quick Actions</string>
+    <string name="see_all">See all</string>
+    <string name="top_stories">Top Stories</string>
+    <string name="highlights">Highlights</string>
+    <string name="trending">Trending</string>
 </resources>
