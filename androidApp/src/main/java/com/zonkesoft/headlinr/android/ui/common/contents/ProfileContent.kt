@@ -39,7 +39,7 @@ fun ProfileContent(
             items(menuList.value.size) { index ->
                 val menuItem = menuList.value[index]
                 RegularText(
-                    text = menuItem.title.orEmpty(),
+                    text = menuItem.title,
                     textColor = textColor,
                     fontSize = 14.sp,
                     textAlign = TextAlign.Start

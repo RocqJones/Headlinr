@@ -8,33 +8,6 @@
 import SwiftUI
 import shared
 
-extension SplashScreen {
-    
-    @MainActor
-    class InterfaceViewModelWrapper: ObservableObject {
-       
-        let interfaceViewModel: InterfaceViewModel
-
-        private var injector: InterfaceInjector
-
-        init() {
-            injector = InterfaceInjector()
-            interfaceViewModel = injector.interfaceViewModel
-            splashScreenModel = interfaceViewModel.splashScreenModel.value
-        }
-        
-        @Published var splashScreenModel : SplashScreenModel
-        
-        func startObserving() {
-            Task {
-                for await item in interfaceViewModel.splashScreenModel {
-                    self.splashScreenModel = item
-                }
-            }
-        }
-    }
-}
-
 struct SplashScreen: View {
     @State private var navigateToHome = false
     @ObservedObject private(set) var viewModelWrapper: InterfaceViewModelWrapper
@@ -73,22 +46,23 @@ struct SplashScreen: View {
                     navigateToHome = true
                 }
             }.navigationDestination(isPresented: $navigateToHome) {
-                HomeScreen()
+                HomeScreen(viewModelWrapper: InterfaceViewModelWrapper())
             }
         }
     }
 }
 
-//struct SplashScreen_Previews : PreviewProvider {
-//    static var previews: some View {
-//        SplashScreen()
-//    }
-//}
+
 struct SplashScreen_Previews: PreviewProvider {
-    class MockViewModelWrapper: SplashScreen.InterfaceViewModelWrapper {
+    class MockViewModelWrapper: InterfaceViewModelWrapper {
         init(mockModel: SplashScreenModel) {
             super.init()
             self.splashScreenModel = mockModel
+        }
+
+        // Override to avoid starting actual KMP observation during preview
+        override func startObserving() {
+            // Do nothing in preview
         }
     }
     

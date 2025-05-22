@@ -55,7 +55,7 @@ fun MenuContent(
             items(topics.value.size) { index ->
                 val topicItem = topics.value[index]
                 RegularTextWithIcon(
-                    text = topicItem.title.orEmpty(),
+                    text = topicItem.title,
                     icon = painterResource(id = R.drawable.outline_arrow_outward_20),
                     textColor = textColor,
                     fontSize = 14.sp,

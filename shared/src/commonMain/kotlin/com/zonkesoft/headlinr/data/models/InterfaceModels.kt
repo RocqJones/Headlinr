@@ -8,10 +8,10 @@ data class SplashScreenModel(
 
 data class MenuItem(
     val icon: Int? = null,
-    val title: String? = null,
+    val title: String,
 )
 
 data class Topics(
     val icon: Int? = null,
-    val title: String? = null,
+    val title: String,
 )
