@@ -12,7 +12,7 @@ import kotlinx.datetime.toLocalDateTime
 
 class InterfaceViewModel() : BaseViewModel() {
 
-    private val _splashScreenModel = MutableStateFlow(SplashScreenModel())
+    private val _splashScreenModel = MutableStateFlow(SplashScreenModel(header = "", subHeader = "", delay = 0L))
     val splashScreenModel: StateFlow<SplashScreenModel> get() = _splashScreenModel
 
     private val _menuItems = MutableStateFlow(emptyList<MenuItem>())

@@ -1,9 +1,9 @@
 package com.zonkesoft.headlinr.data.models
 
 data class SplashScreenModel(
-    val header: String? = null,
-    val subHeader: String? = null,
-    val delay: Long? = null,
+    val header: String,
+    val subHeader: String,
+    val delay: Long,
 )
 
 data class MenuItem(
