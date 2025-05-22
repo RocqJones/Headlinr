@@ -12,7 +12,7 @@ android {
         minSdk = 23
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.1-dev"
     }
     buildFeatures {
         compose = true
@@ -45,4 +45,8 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.lottie.compose)
     implementation(libs.androidx.navigation.compose)
+
+    // DI
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
 }

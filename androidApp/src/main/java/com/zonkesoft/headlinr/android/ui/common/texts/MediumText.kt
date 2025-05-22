@@ -1,4 +1,4 @@
-package com.zonkesoft.headlinr.android.ui.helpers.texts
+package com.zonkesoft.headlinr.android.ui.common.texts
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

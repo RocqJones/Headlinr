@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.zonkesoft.headlinr.android.models.Screen
+import com.zonkesoft.headlinr.android.ui.navigation.Screen
 import com.zonkesoft.headlinr.android.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {

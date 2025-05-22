@@ -1,4 +1,4 @@
-package com.zonkesoft.headlinr.android.ui.helpers.texts
+package com.zonkesoft.headlinr.android.ui.common.texts
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -17,13 +17,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.zonkesoft.headlinr.android.R
 
 @Composable
-fun RegularTextWithIcon(
+fun RegularTextWithIconEnd(
     text: String,
     icon: Painter,
     textColor: Color,
@@ -32,7 +31,6 @@ fun RegularTextWithIcon(
     hasBorder: Boolean = false,
     iconColor: Color = textColor,
     bgColor: Color = Color.Transparent,
-    textDecoration: TextDecoration? = null,
     verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
     clickable: () -> Unit = {}
 ) {
@@ -85,20 +83,19 @@ fun RegularTextWithIcon(
                         }
                     )
             ) {
-                Icon(
-                    painter = icon,
-                    contentDescription = stringResource(id = R.string.icon),
-                    tint = iconColor
-                )
-
-                Spacer(modifier = Modifier.width(8.dp))
-
                 RegularText(
                     text = text,
                     textColor = textColor,
                     fontSize = fontSize,
-                    textAlign = alignText,
-                    textDecoration = textDecoration
+                    textAlign = alignText
+                )
+
+                Spacer(modifier = Modifier.width(8.dp))
+
+                Icon(
+                    painter = icon,
+                    contentDescription = stringResource(id = R.string.icon),
+                    tint = iconColor
                 )
             }
         }

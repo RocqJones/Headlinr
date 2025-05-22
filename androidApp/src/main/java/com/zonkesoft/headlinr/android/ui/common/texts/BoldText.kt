@@ -1,7 +1,8 @@
-package com.zonkesoft.headlinr.android.ui.helpers.texts
+package com.zonkesoft.headlinr.android.ui.common.texts
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
@@ -13,11 +14,12 @@ import androidx.core.content.res.ResourcesCompat
 import com.zonkesoft.headlinr.android.R
 
 @Composable
-fun ExtraBoldText(
+fun BoldText(
     text: String,
     textColor: Color,
     fontSize: TextUnit,
-    alignText: TextAlign?
+    textAlign: TextAlign?,
+    modifier: Modifier = Modifier
 ) {
     val style = TextStyle(
         color = textColor,
@@ -25,13 +27,14 @@ fun ExtraBoldText(
         fontSize = fontSize
     )
     val fontFamily: FontFamily? = ResourcesCompat.getFont(
-        LocalContext.current.applicationContext, R.font.poppins_extra_bold
+        LocalContext.current.applicationContext, R.font.poppins_bold
     )?.let { font -> FontFamily(font) }
 
     Text(
         text = text,
         style = style,
+        modifier = modifier,
         fontFamily = fontFamily,
-        textAlign = alignText ?: TextAlign.Start
+        textAlign = textAlign ?: TextAlign.Start
     )
 }
