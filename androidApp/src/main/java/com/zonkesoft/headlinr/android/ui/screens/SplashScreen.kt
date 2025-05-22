@@ -21,16 +21,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.zonkesoft.headlinr.android.R
-import com.zonkesoft.headlinr.android.di.viewModelsModule
-import com.zonkesoft.headlinr.android.ui.navigation.Screen
 import com.zonkesoft.headlinr.android.ui.common.spacers.SpacerCommon
 import com.zonkesoft.headlinr.android.ui.common.texts.BoldText
 import com.zonkesoft.headlinr.android.ui.common.texts.MediumText
+import com.zonkesoft.headlinr.android.ui.navigation.Screen
 import com.zonkesoft.headlinr.android.ui.theme.MyApplicationTheme
 import com.zonkesoft.headlinr.data.vm.InterfaceViewModel
 import kotlinx.coroutines.delay
@@ -46,7 +44,7 @@ fun SplashScreen(
     val screenContent = interfaceViewModel.splashScreenModel.collectAsState()
 
     LaunchedEffect(Unit) {
-        delay(screenContent.value.delay ?: 3000L)
+        delay(screenContent.value.delay)
         navController.navigate(Screen.HomeScreen.route)
     }
 
@@ -68,14 +66,14 @@ fun SplashScreen(
             modifier = Modifier.align(Alignment.BottomStart).padding(bottom = 32.dp),
         ) {
             BoldText(
-                text = screenContent.value.header ?: stringResource(R.string.app_name),
+                text = screenContent.value.header,
                 textColor = textColor,
                 fontSize = 28.sp,
                 textAlign = TextAlign.Start,
             )
 
             MediumText(
-                text = screenContent.value.subHeader.orEmpty(),
+                text = screenContent.value.subHeader,
                 textColor = textColor,
                 fontSize = 16.sp,
                 textAlign = TextAlign.Start
