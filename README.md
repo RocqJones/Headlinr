@@ -56,6 +56,29 @@ The app allows users to filter news by country and category, view article detail
 
 ---
 
+## 🗂️ Project Structure (MVVM – KMM)
+```bash
+shared/
+├── src/
+│   ├── commonMain/
+│   │   └── com/yourdomain/yourapp/
+│   │       ├── data/
+│   │       │   ├── model/           # Data models (DTOs, entities)
+│   │       │   ├── repository/      # Repository interfaces & implementations
+│   │       ├── di/                  # Dependency injection (e.g., Koin modules)
+│   │       ├── network/
+│   │       │   ├── service/         # Ktor services / API clients
+│   │       ├── presentation/
+│   │       │   ├── vm/              # Shared ViewModels
+│   │       │   ├── state/           # UI state holders (if applicable)
+│   │       ├── util/                # Extensions, helpers, constants
+│
+│   ├── androidMain/                 # Android-specific code
+│   ├── iosMain/                     # iOS-specific code
+
+```
+
+
 ## 🚧 Setup & Installation
 
 1. **Clone the repo:**
