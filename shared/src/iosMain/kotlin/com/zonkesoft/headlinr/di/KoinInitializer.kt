@@ -1,6 +1,6 @@
 package com.zonkesoft.headlinr.di
 
-import com.zonkesoft.headlinr.data.vm.InterfaceViewModel
+import com.zonkesoft.headlinr.presentation.vm.InterfaceViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin

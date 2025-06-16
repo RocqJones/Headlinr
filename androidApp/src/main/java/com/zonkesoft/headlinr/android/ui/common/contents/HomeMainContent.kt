@@ -27,7 +27,7 @@ import com.zonkesoft.headlinr.android.ui.common.texts.MediumText
 import com.zonkesoft.headlinr.android.ui.common.texts.RegularText
 import com.zonkesoft.headlinr.android.ui.theme.fireColor
 import com.zonkesoft.headlinr.android.ui.theme.linkColor
-import com.zonkesoft.headlinr.data.vm.InterfaceViewModel
+import com.zonkesoft.headlinr.presentation.vm.InterfaceViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

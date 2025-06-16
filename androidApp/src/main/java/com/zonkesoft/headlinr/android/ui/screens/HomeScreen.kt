@@ -31,7 +31,7 @@ import com.zonkesoft.headlinr.android.ui.common.contents.MenuContent
 import com.zonkesoft.headlinr.android.ui.common.contents.ProfileContent
 import com.zonkesoft.headlinr.android.ui.common.contents.TopAppBarContent
 import com.zonkesoft.headlinr.android.ui.theme.MyApplicationTheme
-import com.zonkesoft.headlinr.data.vm.InterfaceViewModel
+import com.zonkesoft.headlinr.presentation.vm.InterfaceViewModel
 import org.koin.androidx.compose.getViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)

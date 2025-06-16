@@ -3,6 +3,7 @@ package com.zonkesoft.headlinr.android.config
 import android.app.Application
 import android.util.Log
 import com.zonkesoft.headlinr.android.di.viewModelsModule
+import com.zonkesoft.headlinr.di.sharedKoinModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
 
@@ -20,7 +21,7 @@ class AppConfig : Application() {
      */
     private fun initKoin() {
         try {
-            val module = viewModelsModule
+            val module = sharedKoinModule + viewModelsModule
 
             startKoin {
                 androidContext(this@AppConfig)

@@ -1,14 +1,12 @@
-package com.zonkesoft.headlinr.data.vm
+package com.zonkesoft.headlinr.presentation.vm
 
 import com.zonkesoft.headlinr.BaseViewModel
 import com.zonkesoft.headlinr.data.models.MenuItem
 import com.zonkesoft.headlinr.data.models.SplashScreenModel
 import com.zonkesoft.headlinr.data.models.Topics
+import com.zonkesoft.headlinr.utils.HelperUtil
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 
 class InterfaceViewModel() : BaseViewModel() {
 
@@ -33,12 +31,7 @@ class InterfaceViewModel() : BaseViewModel() {
 
     private fun setupTodayDate() {
         try {
-            val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-            val dayOfWeek = now.date.dayOfWeek.name.lowercase().replaceFirstChar { it.uppercase() } // e.g., "Monday"
-            val day = now.date.dayOfMonth.toString().padStart(2, '0') // e.g., "20"
-            val month = now.date.month.name.lowercase().replaceFirstChar { it.uppercase() } // e.g., "October"
-            val year = now.date.year
-            _todayDate.value = "$dayOfWeek, $day $month $year"
+            _todayDate.value = HelperUtil.getTodayDate()
         } catch (e: Exception) {
             Error("Error setting up today's date: ${e.message}")
         }
