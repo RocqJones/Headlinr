@@ -49,4 +49,7 @@ dependencies {
     // DI
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
+
+    // AsyncImage composable
+    implementation(libs.coil.compose)
 }

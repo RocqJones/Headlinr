@@ -32,7 +32,7 @@ import com.zonkesoft.headlinr.android.ui.common.contents.ProfileContent
 import com.zonkesoft.headlinr.android.ui.common.contents.TopAppBarContent
 import com.zonkesoft.headlinr.android.ui.theme.MyApplicationTheme
 import com.zonkesoft.headlinr.presentation.vm.InterfaceViewModel
-import org.koin.androidx.compose.getViewModel
+import com.zonkesoft.headlinr.presentation.vm.NewsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,7 +40,8 @@ fun HomeScreen(
     navController: NavHostController,
     textColor: Color,
     backgroundColor: Color,
-    interfaceViewModel: InterfaceViewModel = getViewModel()
+    newsViewModel: NewsViewModel,
+    interfaceViewModel: InterfaceViewModel
 ) {
     val sheetState = rememberModalBottomSheetState()
     var showMenuBottomSheet by remember { mutableStateOf(false) }
@@ -69,7 +70,7 @@ fun HomeScreen(
                 .fillMaxSize()
                 .background(backgroundColor)
         ) {
-            HomeMainContent(navController, textColor, interfaceViewModel)
+            HomeMainContent(navController, textColor, interfaceViewModel, newsViewModel)
         }
     }
 
@@ -111,9 +112,11 @@ fun HomeScreen(
 @Composable
 fun HomeScreenPreview() {
     MyApplicationTheme {
-        HomeScreen(rememberNavController(),
+        HomeScreen(
+            rememberNavController(),
             MaterialTheme.colorScheme.onBackground,
             MaterialTheme.colorScheme.background,
+            viewModel(),
             viewModel()
         )
     }

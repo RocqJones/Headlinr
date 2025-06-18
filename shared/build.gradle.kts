@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.touchlabSkie)
+    kotlin("plugin.serialization") version libs.versions.kotlin
 }
 
 kotlin {

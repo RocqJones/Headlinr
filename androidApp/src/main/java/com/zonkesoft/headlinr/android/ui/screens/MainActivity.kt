@@ -15,7 +15,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.zonkesoft.headlinr.android.ui.navigation.Screen
+import com.zonkesoft.headlinr.android.ui.screens.more.ViewMoreScreen
 import com.zonkesoft.headlinr.android.ui.theme.MyApplicationTheme
+import com.zonkesoft.headlinr.presentation.vm.InterfaceViewModel
+import com.zonkesoft.headlinr.presentation.vm.NewsViewModel
+import org.koin.androidx.compose.getViewModel
 
 class MainActivity : ComponentActivity() {
 
@@ -35,7 +39,10 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun NavigationGraph() {
+fun NavigationGraph(
+    interfaceViewModel: InterfaceViewModel = getViewModel(),
+    newsViewModel: NewsViewModel = getViewModel()
+) {
     val currentContext = LocalContext.current
     val textColor = MaterialTheme.colorScheme.onBackground
     val backgroundColor = MaterialTheme.colorScheme.background
@@ -48,7 +55,10 @@ fun NavigationGraph() {
             SplashScreen(navController, textColor, backgroundColor)
         }
         composable(Screen.HomeScreen.route) {
-            HomeScreen(navController, textColor, backgroundColor)
+            HomeScreen(navController, textColor, backgroundColor, newsViewModel, interfaceViewModel)
+        }
+        composable(Screen.ViewMoreScreen.route) {
+            ViewMoreScreen(navController, textColor, backgroundColor, newsViewModel)
         }
     }
 }
