@@ -48,11 +48,11 @@ The app allows users to filter news by country and category, view article detail
 
 - **Kotlin Multiplatform Mobile (KMM)**
 - **Jetpack Compose** (Android UI)
-- **SwiftUI** or UIKit (iOS UI, optionally via shared logic)
+- **SwiftUI** (iOS UI, optionally via shared logic)
 - **NewsAPI** – for real-time news feeds
 - **Ktor** – for networking
-- **SQLDelight** – for offline persistence (Planned Phase 2)
 - **Coroutines & Flow** – for async and reactive programming
+- **SQLDelight** – for offline persistence (Planned Phase 2)
 
 ---
 
