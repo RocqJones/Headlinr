@@ -61,16 +61,16 @@ The app allows users to filter news by country and category, view article detail
 shared/
 ├── src/
 │   ├── commonMain/
-│   │   └── com/yourdomain/yourapp/
+│   │   └── com/domain/yourapp/
 │   │       ├── data/
 │   │       │   ├── model/           # Data models (DTOs, entities)
 │   │       │   ├── repository/      # Repository interfaces & implementations
-│   │       ├── di/                  # Dependency injection (e.g., Koin modules)
+│   │       ├── di/                  # Dependency injection (Koin modules)
 │   │       ├── network/
 │   │       │   ├── service/         # Ktor services / API clients
 │   │       ├── presentation/
 │   │       │   ├── vm/              # Shared ViewModels
-│   │       │   ├── state/           # UI state holders (if applicable)
+│   │       │   ├── state/           # UI state holders
 │   │       ├── util/                # Extensions, helpers, constants
 │
 │   ├── androidMain/                 # Android-specific code
