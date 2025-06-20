@@ -46,7 +46,10 @@ struct SplashScreen: View {
                     navigateToHome = true
                 }
             }.navigationDestination(isPresented: $navigateToHome) {
-                HomeScreen(viewModelWrapper: InterfaceViewModelWrapper())
+                HomeScreen(
+                    interfaceViewModelWrapper: InterfaceViewModelWrapper(),
+                    newsViewModelWrapper: NewsViewModelWrapper()
+                )
             }
         }
     }
