@@ -1,6 +1,7 @@
 package com.zonkesoft.headlinr.android.ui.common.cards
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,10 +14,11 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.zonkesoft.headlinr.android.ui.theme.darkCardBackground
 import com.zonkesoft.headlinr.android.ui.theme.defaultBackground
 
 @Composable
-fun CurvedCard(backgroundColor: Color? = null, content: @Composable () -> Unit) {
+fun CurvedCard(content: @Composable () -> Unit) {
     Card(
         shape = RoundedCornerShape(10.dp),
         modifier = Modifier
@@ -24,7 +26,10 @@ fun CurvedCard(backgroundColor: Color? = null, content: @Composable () -> Unit) 
             .padding(1.dp)
             .shadow(10.dp, RoundedCornerShape(10.dp)),
         colors = CardDefaults.cardColors(
-            containerColor = backgroundColor ?: defaultBackground
+            containerColor = when {
+                isSystemInDarkTheme() -> darkCardBackground
+                else -> defaultBackground
+            }
         )
     ) {
         Box(
@@ -38,7 +43,7 @@ fun CurvedCard(backgroundColor: Color? = null, content: @Composable () -> Unit) 
 }
 
 @Composable
-fun CurvedCardNoPadding(backgroundColor: Color? = null, content: @Composable () -> Unit) {
+fun CurvedCardNoPadding(content: @Composable () -> Unit) {
     Card(
         shape = RoundedCornerShape(10.dp),
         modifier = Modifier
@@ -46,7 +51,10 @@ fun CurvedCardNoPadding(backgroundColor: Color? = null, content: @Composable () 
             .padding(1.dp)
             .shadow(10.dp, RoundedCornerShape(10.dp)),
         colors = CardDefaults.cardColors(
-            containerColor = backgroundColor ?: defaultBackground
+            containerColor = when {
+                isSystemInDarkTheme() -> darkCardBackground
+                else -> defaultBackground
+            }
         )
     ) {
         Box(
