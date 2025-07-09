@@ -20,6 +20,7 @@ class NewsViewModelWrapper: ObservableObject {
     
     // Published ui items
     @Published var topStoriesState: TopStoriesUiState
+    @Published var articlesModel: ArticlesModel
     @Published var highlightsState: HighlightsUiState
     @Published var trendingState: TrendingUiState
     
@@ -29,6 +30,7 @@ class NewsViewModelWrapper: ObservableObject {
         
         // init current values
         self.topStoriesState = newsViewModel.topHeadlinesState.value
+        self.articlesModel = newsViewModel.articlesModel.value
         self.highlightsState = newsViewModel.highlightsState.value
         self.trendingState = newsViewModel.trendingState.value
     }
@@ -38,6 +40,12 @@ class NewsViewModelWrapper: ObservableObject {
         Task {
             for await item in newsViewModel.topHeadlinesState {
                 self.topStoriesState = item
+            }
+        }
+        
+        Task {
+            for await item in newsViewModel.articlesModel {
+                self.articlesModel = item
             }
         }
         
