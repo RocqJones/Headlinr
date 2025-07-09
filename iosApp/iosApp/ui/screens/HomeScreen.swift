@@ -12,8 +12,8 @@ import SwiftUI
 import shared
 
 struct HomeScreen: View {
-    @ObservedObject var interfaceViewModelWrapper: InterfaceViewModelWrapper
-    @ObservedObject var newsViewModelWrapper: NewsViewModelWrapper
+    @ObservedObject private(set) var interfaceViewModelWrapper: InterfaceViewModelWrapper
+    @ObservedObject private(set) var newsViewModelWrapper: NewsViewModelWrapper
 
     @State private var showMenuSheet = false
     @State private var showProfileSheet = false
@@ -39,8 +39,9 @@ struct HomeScreen: View {
 
                     // HIGHLIGHTS SECTION
                     HeaderRow(title: "Highlights", action: "See All")
+                }.padding().onAppear {
+                    newsViewModelWrapper.startObserving()
                 }
-                .padding()
             }
             .navigationTitle("For You")
             .toolbar {
@@ -93,54 +94,5 @@ struct HomeScreen: View {
         default:
             EmptyView()
         }
-    }
-}
-
-
-struct HomeScreen_Previews: PreviewProvider {
-
-    class MockInterfaceViewModelWrapper: InterfaceViewModelWrapper {
-        override init() {
-            super.init()
-            self.todayDate = "May 22, 2025"
-        }
-    }
-
-    class MockNewsViewModelWrapper: NewsViewModelWrapper {
-        override init() {
-            super.init()
-            self.topStoriesState = TopStoriesUiState.TopContent(
-                topStories: [
-                    ArticlesModel(
-                        source: SourceModel(id: "1", name: "Mock Source 1"),
-                        author: "Author 1",
-                        title: "Top Story Headline 1",
-                        description: "Description for story 1",
-                        url: "https://example.com/story1",
-                        urlToImage: "https://via.placeholder.com/300.png",
-                        publishedAt: "2025-05-22T12:00:00Z",
-                        content: "Full content of the article 1"
-                    ),
-                    ArticlesModel(
-                        source: SourceModel(id: "2", name: "Mock Source 2"),
-                        author: "Author 2",
-                        title: "Top Story Headline 2",
-                        description: "Description for story 2",
-                        url: "https://example.com/story2",
-                        urlToImage: "https://via.placeholder.com/300.png",
-                        publishedAt: "2025-05-22T14:00:00Z",
-                        content: "Full content of the article 2"
-                    )
-                ]
-            )
-        }
-    }
-
-    static var previews: some View {
-        HomeScreen(
-            interfaceViewModelWrapper: MockInterfaceViewModelWrapper(),
-            newsViewModelWrapper: MockNewsViewModelWrapper()
-        )
-        .preferredColorScheme(.light)
     }
 }

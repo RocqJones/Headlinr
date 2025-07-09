@@ -25,7 +25,8 @@ object HelperUtil {
 
     fun getDefaultCountryCode(): String {
         return try {
-            getPlatformCountryCode()
+            //getPlatformCountryCode()
+            "us"
         } catch (e: Exception) {
             println("Error getting default country code: ${e.message}")
             "US" // fallback country code

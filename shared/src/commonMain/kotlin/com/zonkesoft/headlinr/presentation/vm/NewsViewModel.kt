@@ -62,7 +62,7 @@ class NewsViewModel(private val repository: NewsRepository) : BaseViewModel() {
                         _topHeadlinesState.emit(
                             TopStoriesUiState.Error(
                                 title = "Error fetching top stories",
-                                message = response.status ?: "Unknown error"
+                                message = "${response.status}, totalResults:${response.totalResults}"
                             )
                         )
                     }
