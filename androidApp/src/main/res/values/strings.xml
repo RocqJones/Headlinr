@@ -11,4 +11,7 @@
     <string name="highlights">Highlights</string>
     <string name="trending">Trending</string>
     <string name="img">img</string>
+    <string name="title">Title</string>
+    <string name="source">Source</string>
+    <string name="dd_mm_yyyy">DD/MM/YYYY HH:MM</string>
 </resources>

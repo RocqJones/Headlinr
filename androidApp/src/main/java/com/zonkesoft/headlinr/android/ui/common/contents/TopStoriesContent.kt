@@ -82,14 +82,14 @@ fun TopStoriesContent(
 
                     SpacerCommon(size = 8, isVertical = true)
                     RegularText(
-                        text = item.source?.name ?: "Source",
+                        text = item.source?.name ?: stringResource(R.string.source),
                         textColor = textColor,
                         fontSize = 12.sp,
                         textAlign = TextAlign.Start
                     )
                     SpacerCommon(size = 2, isVertical = true)
                     BoldText(
-                        text = item.title ?: "Title",
+                        text = item.title ?: stringResource(R.string.title),
                         textColor = textColor,
                         fontSize = 16.sp,
                         maxLines = 2,
@@ -97,7 +97,7 @@ fun TopStoriesContent(
                     )
                     SpacerCommon(size = 2, isVertical = true)
                     MediumText(
-                        text = item.publishedAt ?: "DD/MM/YYYY HH:MM",
+                        text = item.publishedAt ?: stringResource(R.string.dd_mm_yyyy),
                         textColor = textColor,
                         fontSize = 12.sp,
                         textAlign = TextAlign.Start

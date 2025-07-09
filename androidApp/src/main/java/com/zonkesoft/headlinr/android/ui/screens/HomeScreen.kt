@@ -77,6 +77,7 @@ fun HomeScreen(
     when {
         showMenuBottomSheet -> {
             ModalBottomSheet(
+                containerColor = backgroundColor,
                 onDismissRequest = { showMenuBottomSheet = false },
                 sheetState = sheetState
             ) {
@@ -88,6 +89,7 @@ fun HomeScreen(
     when {
         showProfileBottomSheet -> {
             ModalBottomSheet(
+                containerColor = backgroundColor,
                 onDismissRequest = { showProfileBottomSheet = false },
                 sheetState = sheetState
             ) {

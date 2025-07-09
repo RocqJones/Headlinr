@@ -55,12 +55,11 @@ class InterfaceViewModel() : BaseViewModel() {
     private fun setupMenuItems() {
         try {
             _menuItems.value = listOf(
-                MenuItem(icon = null, title = "Donate"),
-                MenuItem(icon = null, title = "Bookmarks"),
-                MenuItem(icon = null, title = "Settings"),
+                MenuItem(icon = null, title = "Buy me coffee"),
                 MenuItem(icon = null, title = "About"),
-                MenuItem(icon = null, title = "Rate Us"),
-                MenuItem(icon = null, title = "Share")
+                MenuItem(icon = null, title = "Share"),
+                /*MenuItem(icon = null, title = "Settings"),
+                MenuItem(icon = null, title = "Bookmarks")*/
             )
         } catch (e: Exception) {
             Error("Error setting up menu items: ${e.message}")
