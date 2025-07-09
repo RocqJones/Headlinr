@@ -1,5 +1,6 @@
 package com.zonkesoft.headlinr.android.ui.common.contents
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,9 +16,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -66,25 +69,11 @@ fun HomeMainContent(
 
         SpacerCommon(size = 8, isVertical = true)
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            BoldText(
-                text = stringResource(R.string.top_stories),
-                textColor = textColor,
-                fontSize = 24.sp,
-                textAlign = TextAlign.Start
-            )
-
-            MediumText(
-                text = stringResource(R.string.see_all),
-                textColor = linkColor,
-                fontSize = 16.sp,
-                textAlign = TextAlign.Start
-            )
-        }
+        SectionHeaderRow(
+            title = stringResource(R.string.top_stories),
+            textColor = textColor,
+            subTitle = "",
+        )
 
         SpacerCommon(size = 16, isVertical = true)
 
@@ -113,48 +102,69 @@ fun HomeMainContent(
 
         SpacerCommon(size = 16, isVertical = true)
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            BoldTextWithIcon(
-                text = stringResource(R.string.trending),
-                textColor = textColor,
-                fontSize = 24.sp,
-                textAlign = TextAlign.Start,
-                icon = painterResource(R.drawable.outline_local_fire_department_24),
-                iconColor = fireColor,
-            )
-
-            MediumText(
-                text = stringResource(R.string.see_all),
-                textColor = linkColor,
-                fontSize = 16.sp,
-                textAlign = TextAlign.Start
-            )
-        }
+        SectionHeaderRow(
+            title = stringResource(R.string.trending),
+            subTitle = stringResource(R.string.see_all),
+            textColor = textColor,
+            icon = painterResource(R.drawable.outline_local_fire_department_24),
+            iconColor = fireColor
+        )
 
         SpacerCommon(size = 16, isVertical = true)
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            BoldText(
-                text = stringResource(R.string.highlights),
-                textColor = textColor,
-                fontSize = 24.sp,
-                textAlign = TextAlign.Start
-            )
+        SectionHeaderRow(
+            title = stringResource(R.string.highlights),
+            subTitle = stringResource(R.string.see_all),
+            textColor = textColor
+        )
+    }
+}
 
-            MediumText(
-                text = stringResource(R.string.see_all),
-                textColor = linkColor,
-                fontSize = 16.sp,
-                textAlign = TextAlign.Start
-            )
+@Composable
+fun SectionHeaderRow(
+    title: String,
+    subTitle: String,
+    textColor: Color,
+    fontSize: TextUnit = 24.sp,
+    icon: Painter? = null,
+    iconColor: Color = Color.Unspecified,
+    onActionClick: (() -> Unit)? = null
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(enabled = onActionClick != null) {
+                onActionClick?.invoke()
+            },
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        when {
+            icon != null -> {
+                BoldTextWithIcon(
+                    text = title,
+                    textColor = textColor,
+                    fontSize = fontSize,
+                    textAlign = TextAlign.Start,
+                    icon = icon,
+                    iconColor = iconColor
+                )
+            }
+            else -> {
+                BoldText(
+                    text = title,
+                    textColor = textColor,
+                    fontSize = fontSize,
+                    textAlign = TextAlign.Start
+                )
+            }
         }
+
+        MediumText(
+            text = subTitle,
+            textColor = linkColor,
+            fontSize = 16.sp,
+            textAlign = TextAlign.Start
+        )
     }
 }
