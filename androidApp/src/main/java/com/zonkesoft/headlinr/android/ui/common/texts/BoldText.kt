@@ -18,6 +18,7 @@ fun BoldText(
     text: String,
     textColor: Color,
     fontSize: TextUnit,
+    maxLines: Int = Int.MAX_VALUE,
     textAlign: TextAlign?,
     modifier: Modifier = Modifier
 ) {
@@ -35,6 +36,7 @@ fun BoldText(
         style = style,
         modifier = modifier,
         fontFamily = fontFamily,
+        maxLines = maxLines,
         textAlign = textAlign ?: TextAlign.Start
     )
 }

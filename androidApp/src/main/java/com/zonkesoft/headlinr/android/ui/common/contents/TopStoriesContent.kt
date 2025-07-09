@@ -91,7 +91,8 @@ fun TopStoriesContent(
                     BoldText(
                         text = item.title ?: "Title",
                         textColor = textColor,
-                        fontSize = 14.sp,
+                        fontSize = 16.sp,
+                        maxLines = 2,
                         textAlign = TextAlign.Start
                     )
                     SpacerCommon(size = 2, isVertical = true)
