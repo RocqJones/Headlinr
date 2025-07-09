@@ -31,7 +31,7 @@ struct HomeScreen: View {
                     }
 
                     // TOP STORIES SECTION
-                    HeaderRow(title: "Top Stories", action: "See All")
+                    HeaderRow(title: "Top Stories", action: "")
                     topStoriesSection
 
                     // TRENDING SECTION
