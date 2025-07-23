@@ -26,6 +26,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -94,21 +95,20 @@ fun ViewMoreScreen(
 
         SpacerCommon(size = 16, isVertical = true)
 
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            MediumText(
-                text = "By: ${mainModel.value.author ?: stringResource(R.string.source)}",
-                textColor = textColor,
-                fontSize = 14.sp,
-                textAlign = TextAlign.Start
-            )
+        MediumText(
+            text = "By: ${mainModel.value.author ?: stringResource(R.string.source)}",
+            textColor = textColor,
+            fontSize = 14.sp,
+            textAlign = TextAlign.Start
+        )
+        SpacerCommon(size = 4, isVertical = true)
 
-            MediumText(
-                text = mainModel.value.publishedAt ?: stringResource(R.string.dd_mm_yyyy),
-                textColor = textColor,
-                fontSize = 14.sp,
-                textAlign = TextAlign.End
-            )
-        }
+        MediumText(
+            text = mainModel.value.publishedAt ?: stringResource(R.string.dd_mm_yyyy),
+            textColor = textColor,
+            fontSize = 14.sp,
+            textAlign = TextAlign.End
+        )
 
         SpacerCommon(size = 8, isVertical = true)
 
