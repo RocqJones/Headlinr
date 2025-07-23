@@ -8,3 +8,4 @@ captures
 .cxx
 local.properties
 xcuserdataiOSApp/Secrets.plist
+iosApp/Secrets.plist
