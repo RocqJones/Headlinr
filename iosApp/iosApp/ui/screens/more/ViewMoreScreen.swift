@@ -59,8 +59,8 @@ struct ViewMoreScreen: View {
                 Spacer().frame(height: 16)
 
                 // Description
-                //Text(article.description).font(.system(size: 16, weight: .medium))
-                //Spacer().frame(height: 16)
+                Text(article.description_ ?? "").font(.system(size: 16, weight: .medium))
+                Spacer().frame(height: 16)
 
                 // Content
                 Text(article.content ?? "").font(.system(size: 14))
@@ -74,8 +74,7 @@ struct ViewMoreScreen: View {
                         showWebSheet = true
                     }
                 Spacer().frame(height: 16)
-            }
-            .padding(16)
+            }.padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
         }
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $showWebSheet) {
