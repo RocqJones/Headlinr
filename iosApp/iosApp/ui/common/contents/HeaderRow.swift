@@ -17,7 +17,6 @@ struct HeaderRow: View {
             if let icon = icon {
                 Label(title, systemImage: icon)
                     .font(.headline)
-                    .labelStyle(.titleOnly)
             } else {
                 Text(title)
                     .font(.headline)
@@ -30,4 +29,3 @@ struct HeaderRow: View {
         }
     }
 }
-

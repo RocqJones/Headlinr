@@ -30,7 +30,7 @@ import com.zonkesoft.headlinr.android.ui.common.texts.BoldText
 import com.zonkesoft.headlinr.android.ui.common.texts.MediumText
 import com.zonkesoft.headlinr.android.ui.navigation.Screen
 import com.zonkesoft.headlinr.android.ui.theme.MyApplicationTheme
-import com.zonkesoft.headlinr.data.vm.InterfaceViewModel
+import com.zonkesoft.headlinr.presentation.vm.InterfaceViewModel
 import kotlinx.coroutines.delay
 import org.koin.androidx.compose.getViewModel
 

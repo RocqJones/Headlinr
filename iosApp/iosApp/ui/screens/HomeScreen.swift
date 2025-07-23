@@ -8,27 +8,40 @@
 import SwiftUI
 import shared
 
+import SwiftUI
+import shared
+
 struct HomeScreen: View {
-    @ObservedObject var viewModelWrapper: InterfaceViewModelWrapper
+    @ObservedObject private(set) var interfaceViewModelWrapper: InterfaceViewModelWrapper
+    @ObservedObject private(set) var newsViewModelWrapper: NewsViewModelWrapper
+
     @State private var showMenuSheet = false
     @State private var showProfileSheet = false
+    @State private var navigateToViewMore = false
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     Divider()
-                    
-                    if let today = viewModelWrapper.todayDate {
+
+                    if let today = interfaceViewModelWrapper.todayDate {
                         Text(today)
                             .font(.subheadline)
                     }
 
-                    HeaderRow(title: "Top Stories", action: "See All")
+                    // TOP STORIES SECTION
+                    HeaderRow(title: "Top Stories", action: "")
+                    topStoriesSection
+
+                    // TRENDING SECTION
                     HeaderRow(title: "Trending", action: "See All", icon: "flame.fill")
+
+                    // HIGHLIGHTS SECTION
                     HeaderRow(title: "Highlights", action: "See All")
+                }.padding().onAppear {
+                    newsViewModelWrapper.startObserving()
                 }
-                .padding()
             }
             .navigationTitle("For You")
             .toolbar {
@@ -47,26 +60,39 @@ struct HomeScreen: View {
                 }
             }
             .sheet(isPresented: $showMenuSheet) {
-                MenuContent(viewModel: viewModelWrapper)
+                MenuContent(viewModel: interfaceViewModelWrapper)
             }
             .sheet(isPresented: $showProfileSheet) {
-                ProfileContent(viewModel: viewModelWrapper)
+                ProfileContent(viewModel: interfaceViewModelWrapper)
+            }
+            .navigationDestination(isPresented: $navigateToViewMore) {
+                ViewMoreScreen(newsViewModelWrapper: newsViewModelWrapper)
             }
         }
     }
-}
 
+    @ViewBuilder
+    var topStoriesSection: some View {
+        switch newsViewModelWrapper.topStoriesState {
+        case let loading as TopStoriesUiState.Loading:
+            if loading.loading {
+                ProgressView().frame(maxWidth: .infinity).padding()
+            }
 
-struct HomeScreen_Previews: PreviewProvider {
-    class MockViewModelWrapper: InterfaceViewModelWrapper {
-        override init() {
-            super.init()
-            self.todayDate = "May 22, 2025"
+        case let error as TopStoriesUiState.Error:
+            ErrorMessageView(title: error.title, message: error.message)
+
+        case let content as TopStoriesUiState.TopContent:
+            TopStoriesContentView(
+                stories: content.topStories,
+                textColor: .primary
+            ) { selectedStory in
+                newsViewModelWrapper.newsViewModel.setArticlesModel(articlesModel: selectedStory)
+                navigateToViewMore = true
+            }
+
+        default:
+            EmptyView()
         }
-    }
-
-    static var previews: some View {
-        HomeScreen(viewModelWrapper: MockViewModelWrapper())
-            .preferredColorScheme(.dark) // or .dark for dark mode preview
     }
 }

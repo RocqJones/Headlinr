@@ -1,6 +1,7 @@
 package com.zonkesoft.headlinr.di
 
-import com.zonkesoft.headlinr.data.vm.InterfaceViewModel
+import com.zonkesoft.headlinr.presentation.vm.InterfaceViewModel
+import com.zonkesoft.headlinr.presentation.vm.NewsViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin
@@ -15,9 +16,16 @@ fun initKoin() {
 }
 
 /**
- * We have to expose the ViewModel to iOS in a separate class because we don't have koin libraries for iOS
- * This will be consumed in the iOS App
+ * We have to expose the ViewModels to iOS in a separate class because we don't have koin libraries for iOS
+ * We'll create wrappers for the ViewModels to be used in SwiftUI.
+ *
+ * @see InterfaceViewModel
+ * @see NewsViewModel
  */
 class InterfaceInjector : KoinComponent {
     val interfaceViewModel: InterfaceViewModel by inject()
+}
+
+class NewsInjector : KoinComponent {
+    val newsViewModel: NewsViewModel by inject()
 }

@@ -31,8 +31,8 @@ import com.zonkesoft.headlinr.android.ui.common.contents.MenuContent
 import com.zonkesoft.headlinr.android.ui.common.contents.ProfileContent
 import com.zonkesoft.headlinr.android.ui.common.contents.TopAppBarContent
 import com.zonkesoft.headlinr.android.ui.theme.MyApplicationTheme
-import com.zonkesoft.headlinr.data.vm.InterfaceViewModel
-import org.koin.androidx.compose.getViewModel
+import com.zonkesoft.headlinr.presentation.vm.InterfaceViewModel
+import com.zonkesoft.headlinr.presentation.vm.NewsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,7 +40,8 @@ fun HomeScreen(
     navController: NavHostController,
     textColor: Color,
     backgroundColor: Color,
-    interfaceViewModel: InterfaceViewModel = getViewModel()
+    newsViewModel: NewsViewModel,
+    interfaceViewModel: InterfaceViewModel
 ) {
     val sheetState = rememberModalBottomSheetState()
     var showMenuBottomSheet by remember { mutableStateOf(false) }
@@ -69,13 +70,14 @@ fun HomeScreen(
                 .fillMaxSize()
                 .background(backgroundColor)
         ) {
-            HomeMainContent(navController, textColor, interfaceViewModel)
+            HomeMainContent(navController, textColor, interfaceViewModel, newsViewModel)
         }
     }
 
     when {
         showMenuBottomSheet -> {
             ModalBottomSheet(
+                containerColor = backgroundColor,
                 onDismissRequest = { showMenuBottomSheet = false },
                 sheetState = sheetState
             ) {
@@ -87,6 +89,7 @@ fun HomeScreen(
     when {
         showProfileBottomSheet -> {
             ModalBottomSheet(
+                containerColor = backgroundColor,
                 onDismissRequest = { showProfileBottomSheet = false },
                 sheetState = sheetState
             ) {
@@ -111,9 +114,11 @@ fun HomeScreen(
 @Composable
 fun HomeScreenPreview() {
     MyApplicationTheme {
-        HomeScreen(rememberNavController(),
+        HomeScreen(
+            rememberNavController(),
             MaterialTheme.colorScheme.onBackground,
             MaterialTheme.colorScheme.background,
+            viewModel(),
             viewModel()
         )
     }

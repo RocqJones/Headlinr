@@ -16,7 +16,7 @@ import com.zonkesoft.headlinr.android.R
 import com.zonkesoft.headlinr.android.ui.common.spacers.SpacerCommon
 import com.zonkesoft.headlinr.android.ui.common.texts.BoldText
 import com.zonkesoft.headlinr.android.ui.common.texts.RegularText
-import com.zonkesoft.headlinr.data.vm.InterfaceViewModel
+import com.zonkesoft.headlinr.presentation.vm.InterfaceViewModel
 
 @Composable
 fun ProfileContent(
