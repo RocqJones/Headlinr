@@ -23,4 +23,23 @@ class NewsRepository(private val service: NewsService) {
             )
         }
     }
+
+    suspend fun getHighlights(forceRefresh: Boolean = false): TopHeadlineResponseModel {
+        try {
+            val highlights = when {
+                forceRefresh -> { service.getHighlights() }
+                else -> {
+                    // Logic to fetch from local storage or cache
+                    service.getHighlights()
+                }
+            }
+            return highlights
+        } catch (e: Exception) {
+            return TopHeadlineResponseModel(
+                status = "Error: ${e.message}",
+                totalResults = 0,
+                articles = emptyList()
+            )
+        }
+    }
 }

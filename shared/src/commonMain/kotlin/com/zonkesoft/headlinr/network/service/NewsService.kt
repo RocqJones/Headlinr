@@ -11,7 +11,14 @@ class NewsService(private val httpClient: HttpClient) {
 
     suspend fun getTopHeadlines(): TopHeadlineResponseModel {
         val response : TopHeadlineResponseModel = httpClient.get(
-            "${Constants.baseUrl}?country=${HelperUtil.getDefaultCountryCode()}&apiKey=${Constants.apiKey}"
+            "${Constants.baseUrl}${Constants.topHeadlinesEndpoint}?country=${HelperUtil.getDefaultCountryCode()}&apiKey=${Constants.apiKey}"
+        ).body()
+        return response
+    }
+
+    suspend fun getHighlights(): TopHeadlineResponseModel {
+        val response : TopHeadlineResponseModel = httpClient.get(
+            "${Constants.baseUrl}${Constants.everythingEndpoint}?q=all&apiKey=${Constants.apiKey}"
         ).body()
         return response
     }

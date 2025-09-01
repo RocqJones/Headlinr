@@ -35,7 +35,8 @@ class NewsViewModel(private val repository: NewsRepository) : BaseViewModel() {
 
     init {
         getTopHeadlines()
-        // TODO: Call getHighlights(), getTrending(), and getSearchResults() here if/when needed
+        getHighlights()
+        // TODO: Call getTrending(), and getSearchResults() here
     }
 
     fun getTopHeadlines(forceFetch: Boolean = false) {
@@ -81,7 +82,7 @@ class NewsViewModel(private val repository: NewsRepository) : BaseViewModel() {
         scope.launch {
             _highlightsState.emit(HighlightsUiState.Loading(loading = true))
             try {
-                val response = repository.getTopHeadlines(forceFetch)
+                val response = repository.getHighlights(forceFetch)
                 when {
                     response.status == "ok" && response.totalResults > 0 -> {
                         val updatedArticles = response.articles?.map {
