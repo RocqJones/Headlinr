@@ -62,7 +62,7 @@ class InterfaceViewModel() : BaseViewModel() {
                 MenuItem(icon = null, title = "Bookmarks")*/
             )
         } catch (e: Exception) {
-            Error("Error setting up menu items: ${e.message}")
+            println("Error setting up menu items: ${e.message}")
         }
     }
 
