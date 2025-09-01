@@ -18,7 +18,7 @@ fun BoldText(
     text: String,
     textColor: Color,
     fontSize: TextUnit,
-    maxLines: Int = Int.MAX_VALUE,
+    maxLines: Int = 10,
     textAlign: TextAlign?,
     modifier: Modifier = Modifier
 ) {
