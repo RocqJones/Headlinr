@@ -1,11 +1,11 @@
 package com.zonkesoft.headlinr.data.repository
 
-import com.zonkesoft.headlinr.data.models.TopHeadlineResponseModel
+import com.zonkesoft.headlinr.data.models.ApiResponseModel
 import com.zonkesoft.headlinr.network.service.NewsService
 
 class NewsRepository(private val service: NewsService) {
 
-    suspend fun getTopHeadlines(forceRefresh: Boolean = false): TopHeadlineResponseModel {
+    suspend fun getTopHeadlines(forceRefresh: Boolean = false): ApiResponseModel {
         try {
             val topHeadlines = when {
                 forceRefresh -> { service.getTopHeadlines() }
@@ -16,7 +16,7 @@ class NewsRepository(private val service: NewsService) {
             }
             return topHeadlines
         } catch (e: Exception) {
-            return TopHeadlineResponseModel(
+            return ApiResponseModel(
                 status = "Error: ${e.message}",
                 totalResults = 0,
                 articles = emptyList()
@@ -24,7 +24,7 @@ class NewsRepository(private val service: NewsService) {
         }
     }
 
-    suspend fun getHighlights(forceRefresh: Boolean = false): TopHeadlineResponseModel {
+    suspend fun getHighlights(forceRefresh: Boolean = false): ApiResponseModel {
         try {
             val highlights = when {
                 forceRefresh -> { service.getHighlights() }
@@ -35,7 +35,7 @@ class NewsRepository(private val service: NewsService) {
             }
             return highlights
         } catch (e: Exception) {
-            return TopHeadlineResponseModel(
+            return ApiResponseModel(
                 status = "Error: ${e.message}",
                 totalResults = 0,
                 articles = emptyList()
@@ -45,11 +45,11 @@ class NewsRepository(private val service: NewsService) {
 
     suspend fun getEverythingWithQuery(
         query: String
-    ): TopHeadlineResponseModel {
+    ): ApiResponseModel {
         return try {
             service.getEverythingWithQuery(query = query)
         } catch (e: Exception) {
-            TopHeadlineResponseModel(
+            ApiResponseModel(
                 status = "Error: ${e.message}",
                 totalResults = 0,
                 articles = emptyList()
