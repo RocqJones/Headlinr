@@ -36,7 +36,11 @@ fun LottieLoader(message: String = "", textColor: Color) {
                 LottieCompositionSpec.RawRes(R.raw.circular_loading)
             )
             val progress by animateLottieCompositionAsState(
-                composition, iterations = LottieConstants.IterateForever // Loop indefinitely
+                composition = composition,
+                iterations = LottieConstants.IterateForever,
+                isPlaying = true,
+                restartOnPlay = false,
+                speed = 1f
             )
 
             LottieAnimation(

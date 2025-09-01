@@ -1,9 +1,13 @@
 package com.zonkesoft.headlinr
 
-class Greeting {
+class PlatformImplementation {
     private val platform: Platform = getPlatform()
 
     fun greet(): String {
         return "Hello, ${platform.name}!"
+    }
+
+    fun getApiKey(): String {
+        return platform.apiKey
     }
 }

@@ -7,4 +7,5 @@ captures
 .externalNativeBuild
 .cxx
 local.properties
-xcuserdata
+xcuserdataiOSApp/Secrets.plist
+iosApp/Secrets.plist

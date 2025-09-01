@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -54,14 +55,34 @@ kotlin {
     }
 }
 
+val localProperties = Properties().apply {
+    val localPropsFile = rootProject.file("local.properties")
+    if (localPropsFile.exists()) {
+        localPropsFile.inputStream().use { load(it) }
+    }
+}
+val newsApiKey = localProperties.getProperty("API_KEY") ?: ""
+
 android {
     namespace = "com.zonkesoft.headlinr"
     compileSdk = 35
     defaultConfig {
         minSdk = 23
+        buildConfigField("String", "API_KEY", "\"$newsApiKey\"")
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
+// println("🔐 Loaded API_KEY from local.properties (shared): $newsApiKey") // run "./gradlew assembleDebug"
