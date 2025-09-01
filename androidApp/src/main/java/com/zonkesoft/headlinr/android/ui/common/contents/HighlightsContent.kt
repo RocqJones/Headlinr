@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,7 +21,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.zonkesoft.headlinr.android.R
-import com.zonkesoft.headlinr.android.ui.common.cards.CurvedCardNoPadding
 import com.zonkesoft.headlinr.android.ui.common.spacers.SpacerCommon
 import com.zonkesoft.headlinr.android.ui.common.texts.BoldText
 import com.zonkesoft.headlinr.android.ui.common.texts.MediumText
@@ -38,22 +38,24 @@ fun HighlightsContent(
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(0.dp) // Divider will handle spacing
     ) {
-        highlights.forEach { item ->
+        highlights.forEachIndexed { index, item ->
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable {
                         newsViewModel.setArticlesModel(item)
                         navController.navigate(Screen.ViewMoreScreen.route)
-                    }
-                    .padding(vertical = 8.dp),
+                    },
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalAlignment = Alignment.Top
+                verticalAlignment = Alignment.CenterVertically // Center image vertically
             ) {
                 // Text content - 80% width
-                Column(modifier = Modifier.weight(0.8f)) {
+                Column(
+                    modifier = Modifier.weight(0.8f),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
                     BoldText(
                         text = item.title ?: stringResource(R.string.title),
                         textColor = textColor,
@@ -92,17 +94,24 @@ fun HighlightsContent(
                     )
                 }
 
-                // Image content - 20% width
-                CurvedCardNoPadding {
-                    AsyncImage(
-                        modifier = Modifier
-                            .width(80.dp)
-                            .height(80.dp),
-                        model = item.urlToImage,
-                        contentDescription = stringResource(R.string.img),
-                        contentScale = ContentScale.Crop
-                    )
-                }
+                // Image content - 20% width, centered vertically
+                AsyncImage(
+                    modifier = Modifier
+                        .width(100.dp)
+                        .height(80.dp),
+                    model = item.urlToImage,
+                    contentDescription = stringResource(R.string.img),
+                    contentScale = ContentScale.Crop
+                )
+            }
+            // Add horizontal divider after every item except the last
+            if (index != highlights.lastIndex) {
+                HorizontalDivider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                    thickness = 1.dp
+                )
             }
         }
     }
