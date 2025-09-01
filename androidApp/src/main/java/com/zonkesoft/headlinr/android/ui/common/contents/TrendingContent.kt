@@ -2,12 +2,10 @@ package com.zonkesoft.headlinr.android.ui.common.contents
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,7 +19,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.zonkesoft.headlinr.android.R
-import com.zonkesoft.headlinr.android.ui.common.cards.CurvedCardNoPadding
 import com.zonkesoft.headlinr.android.ui.common.spacers.SpacerCommon
 import com.zonkesoft.headlinr.android.ui.common.texts.BoldText
 import com.zonkesoft.headlinr.android.ui.common.texts.MediumText
@@ -38,7 +35,8 @@ fun TrendingContent(
     newsViewModel: NewsViewModel
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         trending.forEach { item ->
             Row(
@@ -47,8 +45,7 @@ fun TrendingContent(
                     .clickable {
                         newsViewModel.setArticlesModel(item)
                         navController.navigate(Screen.ViewMoreScreen.route)
-                    }
-                    .padding(vertical = 8.dp),
+                    },
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 verticalAlignment = Alignment.Top
             ) {
@@ -57,55 +54,48 @@ fun TrendingContent(
                     modifier = Modifier.weight(0.8f),
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
+                    RegularText(
+                        text = item.publishedAt ?: stringResource(R.string.dd_mm_yyyy),
+                        textColor = textColor,
+                        fontSize = 10.sp,
+                        textAlign = TextAlign.Start
+                    )
+
+                    SpacerCommon(size = 4, isVertical = true)
+
                     BoldText(
                         text = item.title ?: stringResource(R.string.title),
                         textColor = textColor,
-                        fontSize = 16.sp,
+                        fontSize = 14.sp,
                         textAlign = TextAlign.Start
                     )
 
                     MediumText(
                         text = item.description ?: stringResource(R.string.description),
                         textColor = textColor,
-                        fontSize = 14.sp,
+                        fontSize = 12.sp,
                         textAlign = TextAlign.Start
                     )
 
                     SpacerCommon(size = 4, isVertical = true)
 
                     RegularText(
-                        text = "By: ${item.author ?: stringResource(R.string.author)}",
-                        textColor = textColor,
-                        fontSize = 12.sp,
-                        textAlign = TextAlign.Start
-                    )
-
-                    RegularText(
-                        text = item.publishedAt ?: stringResource(R.string.dd_mm_yyyy),
-                        textColor = textColor,
-                        fontSize = 12.sp,
-                        textAlign = TextAlign.Start
-                    )
-
-                    RegularText(
                         text = "Source: ${item.source?.name ?: stringResource(R.string.source)}",
                         textColor = textColor,
-                        fontSize = 12.sp,
+                        fontSize = 10.sp,
                         textAlign = TextAlign.Start
                     )
                 }
 
                 // Image content - 20% width
-                CurvedCardNoPadding {
-                    AsyncImage(
-                        modifier = Modifier
-                            .width(120.dp)
-                            .height(150.dp),
-                        model = item.urlToImage,
-                        contentDescription = stringResource(R.string.img),
-                        contentScale = ContentScale.Crop
-                    )
-                }
+                AsyncImage(
+                    modifier = Modifier
+                        .width(120.dp)
+                        .height(90.dp),
+                    model = item.urlToImage,
+                    contentDescription = stringResource(R.string.img),
+                    contentScale = ContentScale.FillBounds
+                )
             }
         }
     }
