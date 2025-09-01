@@ -48,13 +48,36 @@ The app allows users to filter news by country and category, view article detail
 
 - **Kotlin Multiplatform Mobile (KMM)**
 - **Jetpack Compose** (Android UI)
-- **SwiftUI** or UIKit (iOS UI, optionally via shared logic)
+- **SwiftUI** (iOS UI, optionally via shared logic)
 - **NewsAPI** – for real-time news feeds
 - **Ktor** – for networking
-- **SQLDelight** – for offline persistence (Planned Phase 2)
 - **Coroutines & Flow** – for async and reactive programming
+- **SQLDelight** – for offline persistence (Planned Phase 2)
 
 ---
+
+## 🗂️ Project Structure (MVVM – KMM)
+```bash
+shared/
+├── src/
+│   ├── commonMain/
+│   │   └── com/domain/yourapp/
+│   │       ├── data/
+│   │       │   ├── model/           # Data models (DTOs, entities)
+│   │       │   ├── repository/      # Repository interfaces & implementations
+│   │       ├── di/                  # Dependency injection (Koin modules)
+│   │       ├── network/
+│   │       │   ├── service/         # Ktor services / API clients
+│   │       ├── presentation/
+│   │       │   ├── vm/              # Shared ViewModels
+│   │       │   ├── state/           # UI state holders
+│   │       ├── util/                # Extensions, helpers, constants
+│
+│   ├── androidMain/                 # Android-specific code
+│   ├── iosMain/                     # iOS-specific code
+
+```
+
 
 ## 🚧 Setup & Installation
 

@@ -1,0 +1,29 @@
+package com.zonkesoft.headlinr.data.models
+
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class TopHeadlineResponseModel(
+    @SerialName("status") val status: String? = null,
+    @SerialName("totalResults") val totalResults: Int,
+    @SerialName("articles") val articles: List<ArticlesModel>? = null
+)
+
+@Serializable
+data class ArticlesModel(
+    @SerialName("source") val source: SourceModel? = null,
+    @SerialName("author") val author: String? = null,
+    @SerialName("title") val title: String? = null,
+    @SerialName("description") val description: String? = null,
+    @SerialName("url") val url: String? = null,
+    @SerialName("urlToImage") val urlToImage: String? = null,
+    @SerialName("publishedAt") var publishedAt: String? = null,
+    @SerialName("content") val content: String? = null
+)
+
+@Serializable
+data class SourceModel(
+    @SerialName("id") val id: String? = null,
+    @SerialName("name") val name: String? = null
+)
