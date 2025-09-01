@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,7 +21,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.zonkesoft.headlinr.android.R
-import com.zonkesoft.headlinr.android.ui.common.spacers.SpacerCommon
 import com.zonkesoft.headlinr.android.ui.common.texts.BoldText
 import com.zonkesoft.headlinr.android.ui.common.texts.MediumText
 import com.zonkesoft.headlinr.android.ui.common.texts.RegularText
@@ -36,9 +37,9 @@ fun TrendingContent(
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(0.dp) // Remove extra spacing, divider will handle separation
     ) {
-        trending.forEach { item ->
+        trending.forEachIndexed { index, item ->
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -47,7 +48,7 @@ fun TrendingContent(
                         navController.navigate(Screen.ViewMoreScreen.route)
                     },
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalAlignment = Alignment.Top
+                verticalAlignment = Alignment.CenterVertically // Center image vertically
             ) {
                 // Text content - 80% width
                 Column(
@@ -61,7 +62,7 @@ fun TrendingContent(
                         textAlign = TextAlign.Start
                     )
 
-                    SpacerCommon(size = 4, isVertical = true)
+                    //SpacerCommon(size = 4, isVertical = true)
 
                     BoldText(
                         text = item.title ?: stringResource(R.string.title),
@@ -77,7 +78,7 @@ fun TrendingContent(
                         textAlign = TextAlign.Start
                     )
 
-                    SpacerCommon(size = 4, isVertical = true)
+                    //SpacerCommon(size = 4, isVertical = true)
 
                     RegularText(
                         text = "Source: ${item.source?.name ?: stringResource(R.string.source)}",
@@ -87,15 +88,25 @@ fun TrendingContent(
                     )
                 }
 
-                // Image content - 20% width
+                // Image content - 20% width, centered vertically
                 AsyncImage(
                     modifier = Modifier
-                        .width(120.dp)
-                        .height(90.dp),
+                        .width(100.dp)
+                        .height(80.dp),
                     model = item.urlToImage,
                     contentDescription = stringResource(R.string.img),
                     contentScale = ContentScale.FillBounds
                 )
+            }
+
+            // Add horizontal divider after every item except the last
+            when {
+                index != trending.lastIndex -> {
+                    HorizontalDivider(
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                        thickness = 1.dp
+                    )
+                }
             }
         }
     }
