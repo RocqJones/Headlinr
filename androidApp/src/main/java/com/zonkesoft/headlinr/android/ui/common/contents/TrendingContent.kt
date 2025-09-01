@@ -48,11 +48,10 @@ fun TrendingContent(
                         navController.navigate(Screen.ViewMoreScreen.route)
                     },
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalAlignment = Alignment.CenterVertically // Center image vertically
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                // Text content - 80% width
                 Column(
-                    modifier = Modifier.weight(0.8f),
+                    modifier = Modifier.weight(0.8f), // 80% width
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     RegularText(
@@ -61,8 +60,6 @@ fun TrendingContent(
                         fontSize = 10.sp,
                         textAlign = TextAlign.Start
                     )
-
-                    //SpacerCommon(size = 4, isVertical = true)
 
                     BoldText(
                         text = item.title ?: stringResource(R.string.title),
@@ -78,8 +75,6 @@ fun TrendingContent(
                         textAlign = TextAlign.Start
                     )
 
-                    //SpacerCommon(size = 4, isVertical = true)
-
                     RegularText(
                         text = "Source: ${item.source?.name ?: stringResource(R.string.source)}",
                         textColor = textColor,
@@ -88,7 +83,6 @@ fun TrendingContent(
                     )
                 }
 
-                // Image content - 20% width, centered vertically
                 AsyncImage(
                     modifier = Modifier
                         .width(100.dp)
@@ -99,7 +93,6 @@ fun TrendingContent(
                 )
             }
 
-            // Add horizontal divider after every item except the last
             when {
                 index != trending.lastIndex -> {
                     HorizontalDivider(

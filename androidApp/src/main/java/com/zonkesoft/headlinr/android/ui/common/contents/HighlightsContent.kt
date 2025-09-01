@@ -49,11 +49,10 @@ fun HighlightsContent(
                         navController.navigate(Screen.ViewMoreScreen.route)
                     },
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalAlignment = Alignment.CenterVertically // Center image vertically
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                // Text content - 80% width
                 Column(
-                    modifier = Modifier.weight(0.8f),
+                    modifier = Modifier.weight(0.8f),  // 80% width
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     BoldText(
@@ -94,7 +93,6 @@ fun HighlightsContent(
                     )
                 }
 
-                // Image content - 20% width, centered vertically
                 AsyncImage(
                     modifier = Modifier
                         .width(100.dp)
@@ -104,7 +102,7 @@ fun HighlightsContent(
                     contentScale = ContentScale.Crop
                 )
             }
-            // Add horizontal divider after every item except the last
+
             if (index != highlights.lastIndex) {
                 HorizontalDivider(
                     modifier = Modifier
