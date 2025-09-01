@@ -35,9 +35,7 @@ class NewsViewModel(private val repository: NewsRepository) : BaseViewModel() {
 
     init {
         getTopHeadlines()
-        /*getHighlights()
-        getTrending()
-        getSearchResults()*/
+        // TODO: Call getHighlights(), getTrending(), and getSearchResults() here if/when needed
     }
 
     fun getTopHeadlines(forceFetch: Boolean = false) {
