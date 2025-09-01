@@ -34,6 +34,8 @@ import com.zonkesoft.headlinr.android.ui.common.texts.RegularText
 import com.zonkesoft.headlinr.android.ui.theme.fireColor
 import com.zonkesoft.headlinr.android.ui.theme.linkColor
 import com.zonkesoft.headlinr.presentation.state.TopStoriesUiState
+import com.zonkesoft.headlinr.presentation.state.TrendingUiState
+import com.zonkesoft.headlinr.presentation.state.HighlightsUiState
 import com.zonkesoft.headlinr.presentation.vm.InterfaceViewModel
 import com.zonkesoft.headlinr.presentation.vm.NewsViewModel
 
@@ -100,7 +102,7 @@ fun HomeMainContent(
             }
         }
 
-        SpacerCommon(size = 16, isVertical = true)
+        SpacerCommon(size = 24, isVertical = true)
 
         SectionHeaderRow(
             title = stringResource(R.string.trending),
@@ -112,11 +114,61 @@ fun HomeMainContent(
 
         SpacerCommon(size = 16, isVertical = true)
 
+        trendingState.value.also {
+            when (it) {
+                is TrendingUiState.Loading -> {
+                    when {
+                        it.loading -> LottieLoader(textColor = textColor)
+                    }
+                }
+
+                is TrendingUiState.Error -> {
+                    ErrorMessage(title = it.title, message = it.message, textColor = textColor)
+                }
+
+                is TrendingUiState.TrendingContent -> {
+                    TrendingContent(
+                        trending = it.trendingResults,
+                        textColor = textColor,
+                        navController = navController,
+                        newsViewModel = newsViewModel
+                    )
+                }
+            }
+        }
+
+        SpacerCommon(size = 24, isVertical = true)
+
         SectionHeaderRow(
             title = stringResource(R.string.highlights),
             subTitle = stringResource(R.string.see_all),
             textColor = textColor
         )
+
+        SpacerCommon(size = 16, isVertical = true)
+
+        highlightsState.value.also {
+            when (it) {
+                is HighlightsUiState.Loading -> {
+                    when {
+                        it.loading -> LottieLoader(textColor = textColor)
+                    }
+                }
+
+                is HighlightsUiState.Error -> {
+                    ErrorMessage(title = it.title, message = it.message, textColor = textColor)
+                }
+
+                is HighlightsUiState.HighlightsContent -> {
+                    HighlightsContent(
+                        highlights = it.searchResults,
+                        textColor = textColor,
+                        navController = navController,
+                        newsViewModel = newsViewModel
+                    )
+                }
+            }
+        }
     }
 }
 
