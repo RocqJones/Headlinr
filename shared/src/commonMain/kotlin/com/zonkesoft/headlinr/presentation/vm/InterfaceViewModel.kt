@@ -33,7 +33,7 @@ class InterfaceViewModel() : BaseViewModel() {
         try {
             _todayDate.value = HelperUtil.getTodayDate()
         } catch (e: Exception) {
-            Error("Error setting up today's date: ${e.message}")
+            println("Error setting up today's date: ${e.message}")
         }
     }
 
@@ -48,7 +48,7 @@ class InterfaceViewModel() : BaseViewModel() {
                 Topics(icon = null, title = "Technology")
             )
         } catch (e: Exception) {
-            Error("Error setting up topics: ${e.message}")
+            println("Error setting up topics: ${e.message}")
         }
     }
 
@@ -74,7 +74,7 @@ class InterfaceViewModel() : BaseViewModel() {
                 delay = 3000L
             )
         } catch (e: Exception) {
-            Error("Error setting up splash screen: ${e.message}")
+            println("Error setting up splash screen: ${e.message}")
         }
     }
 }
