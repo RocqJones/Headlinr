@@ -2,7 +2,7 @@ package com.zonkesoft.headlinr.android.ui.screens.more
 
 import android.util.Log
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,7 +26,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -57,127 +56,127 @@ fun ViewMoreScreen(
         Log.d("ViewMoreScreen", "mainModel: ${mainModel.value}")
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .verticalScroll(rememberScrollState())
-    ) {
-        Row(
-            modifier = Modifier.clickable { navController.popBackStack() },
-            verticalAlignment = Alignment.CenterVertically
+    Box {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState())
         ) {
-            Icon(
-                painter = painterResource(id = R.drawable.arrow_back_ios_new_24),
-                contentDescription = "Back",
-                tint = linkColor
-            )
+            Row(
+                modifier = Modifier.clickable { navController.popBackStack() },
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.arrow_back_ios_new_24),
+                    contentDescription = "Back",
+                    tint = linkColor
+                )
 
-            SpacerCommon(size = 8, isHorizontal = true)
+                SpacerCommon(size = 8, isHorizontal = true)
 
-            MediumText(
-                text = stringResource(R.string.for_you),
-                textColor = linkColor,
+                MediumText(
+                    text = stringResource(R.string.for_you),
+                    textColor = linkColor,
+                    fontSize = 20.sp,
+                    textAlign = TextAlign.Start
+                )
+            }
+
+            // Content for View More Screen
+            SpacerCommon(size = 20, isVertical = true)
+
+            BoldText(
+                text = mainModel.value.title ?: stringResource(R.string.title),
+                textColor = textColor,
                 fontSize = 20.sp,
                 textAlign = TextAlign.Start
             )
-        }
 
-        // Content for View More Screen
-        SpacerCommon(size = 20, isVertical = true)
+            SpacerCommon(size = 16, isVertical = true)
 
-        BoldText(
-            text = mainModel.value.title ?: stringResource(R.string.title),
-            textColor = textColor,
-            fontSize = 20.sp,
-            textAlign = TextAlign.Start
-        )
-
-        SpacerCommon(size = 16, isVertical = true)
-
-        MediumText(
-            text = "By: ${mainModel.value.author ?: stringResource(R.string.source)}",
-            textColor = textColor,
-            fontSize = 14.sp,
-            textAlign = TextAlign.Start
-        )
-        SpacerCommon(size = 4, isVertical = true)
-
-        MediumText(
-            text = mainModel.value.publishedAt ?: stringResource(R.string.dd_mm_yyyy),
-            textColor = textColor,
-            fontSize = 14.sp,
-            textAlign = TextAlign.End
-        )
-
-        SpacerCommon(size = 8, isVertical = true)
-
-        CurvedCardNoPadding {
-            AsyncImage(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(250.dp),
-                model = mainModel.value.urlToImage,
-                contentDescription = stringResource(R.string.img),
-                contentScale = ContentScale.FillBounds
+            MediumText(
+                text = "By: ${mainModel.value.author ?: stringResource(R.string.source)}",
+                textColor = textColor,
+                fontSize = 14.sp,
+                textAlign = TextAlign.Start
             )
-        }
+            SpacerCommon(size = 4, isVertical = true)
 
-        SpacerCommon(size = 16, isVertical = true)
+            MediumText(
+                text = mainModel.value.publishedAt ?: stringResource(R.string.dd_mm_yyyy),
+                textColor = textColor,
+                fontSize = 14.sp,
+                textAlign = TextAlign.End
+            )
 
-        RegularText(
-            text = "Source: ${mainModel.value.source?.name ?: stringResource(R.string.source)}",
-            textColor = textColor,
-            fontSize = 14.sp,
-            textAlign = TextAlign.Start
-        )
+            SpacerCommon(size = 8, isVertical = true)
 
-        SpacerCommon(size = 16, isVertical = true)
-
-        MediumText(
-            text = mainModel.value.description.orEmpty(),
-            textColor = textColor,
-            fontSize = 16.sp,
-            textAlign = TextAlign.Start
-        )
-
-        SpacerCommon(size = 16, isVertical = true)
-
-        RegularText(
-            text = mainModel.value.content.orEmpty(),
-            textColor = textColor,
-            fontSize = 14.sp,
-            textAlign = TextAlign.Start
-        )
-
-        SpacerCommon(size = 16, isVertical = true)
-
-        BoldText(
-            text = "-> Read more at...",
-            textColor = linkColor,
-            fontSize = 16.sp,
-            textAlign = TextAlign.Start,
-            modifier = Modifier.clickable {
-                showWebBottomSheet.value = true
+            CurvedCardNoPadding {
+                AsyncImage(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp),
+                    model = mainModel.value.urlToImage,
+                    contentDescription = stringResource(R.string.img),
+                    contentScale = ContentScale.FillBounds
+                )
             }
-        )
 
-        SpacerCommon(size = 16, isVertical = true)
+            SpacerCommon(size = 16, isVertical = true)
 
-        when {
-            showWebBottomSheet.value -> {
-                ModalBottomSheet(
-                    containerColor = backgroundColor,
-                    onDismissRequest = { showWebBottomSheet.value = false },
-                    sheetState = sheetState,
-                ) {
-                    WebViewBottomSheet(
-                        url = mainModel.value.url.orEmpty(),
-                        textColor = textColor,
-                        backgroundColor = backgroundColor
-                    )
+            RegularText(
+                text = "Source: ${mainModel.value.source?.name ?: stringResource(R.string.source)}",
+                textColor = textColor,
+                fontSize = 14.sp,
+                textAlign = TextAlign.Start
+            )
+
+            SpacerCommon(size = 16, isVertical = true)
+
+            MediumText(
+                text = mainModel.value.description.orEmpty(),
+                textColor = textColor,
+                fontSize = 16.sp,
+                textAlign = TextAlign.Start
+            )
+
+            SpacerCommon(size = 16, isVertical = true)
+
+            RegularText(
+                text = mainModel.value.content.orEmpty(),
+                textColor = textColor,
+                fontSize = 14.sp,
+                textAlign = TextAlign.Start
+            )
+
+            SpacerCommon(size = 16, isVertical = true)
+
+            BoldText(
+                text = stringResource(R.string.read_more_at),
+                textColor = linkColor,
+                fontSize = 16.sp,
+                textAlign = TextAlign.Start,
+                modifier = Modifier.clickable {
+                    showWebBottomSheet.value = true
                 }
-            }
+            )
+
+            SpacerCommon(size = 16, isVertical = true)
+        }
+    }
+
+    if (showWebBottomSheet.value) {
+        ModalBottomSheet(
+            containerColor = backgroundColor,
+            onDismissRequest = { showWebBottomSheet.value = false },
+            sheetState = sheetState,
+        ) {
+            WebViewBottomSheet(
+                url = mainModel.value.url.orEmpty(),
+                textColor = textColor,
+                backgroundColor = backgroundColor
+            )
         }
     }
 }

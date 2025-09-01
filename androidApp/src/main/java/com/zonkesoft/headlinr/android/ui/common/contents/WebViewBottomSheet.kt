@@ -40,7 +40,13 @@ fun WebViewBottomSheet(
                 WebView(context).apply {
                     settings.javaScriptEnabled = true
                     settings.domStorageEnabled = true
-                    isVerticalScrollBarEnabled = true
+
+                    // other settings
+                    settings.loadWithOverviewMode = true
+                    settings.useWideViewPort = true
+                    settings.builtInZoomControls = true
+                    settings.displayZoomControls = false
+
 
                     webViewClient = object : WebViewClient() {
                         override fun onPageFinished(view: WebView?, url: String?) {
@@ -50,11 +56,7 @@ fun WebViewBottomSheet(
                     loadUrl(url)
                 }
             },
-            modifier = Modifier.fillMaxSize().scrollable(
-                state = rememberScrollState(),
-                orientation = Orientation.Vertical,
-                enabled = true,
-            )
+            modifier = Modifier.fillMaxSize()
         )
 
         if (isLoading) {

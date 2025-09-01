@@ -67,7 +67,7 @@ struct ViewMoreScreen: View {
                 Spacer().frame(height: 16)
 
                 // Read more
-                Text("-> Read more at...")
+                Text("Read more at...")
                     .font(.system(size: 16, weight: .bold))
                     .foregroundColor(.blue)
                     .onTapGesture {
