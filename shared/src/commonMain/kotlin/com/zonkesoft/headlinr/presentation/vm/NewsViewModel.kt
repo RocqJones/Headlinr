@@ -36,7 +36,8 @@ class NewsViewModel(private val repository: NewsRepository) : BaseViewModel() {
     init {
         getTopHeadlines()
         getHighlights()
-        // TODO: Call getTrending(), and getSearchResults() here
+        getTrending()
+        // TODO: Call getSearchResults() here
     }
 
     fun getTopHeadlines(forceFetch: Boolean = false) {
@@ -117,11 +118,11 @@ class NewsViewModel(private val repository: NewsRepository) : BaseViewModel() {
         }
     }
 
-    fun getTrending(forceFetch: Boolean = false) {
+    fun getTrending(query: String = "trending") {
         scope.launch {
             _trendingState.emit(TrendingUiState.Loading(loading = true))
             try {
-                val response = repository.getTopHeadlines(forceFetch)
+                val response = repository.getEverythingWithQuery(query)
                 when {
                     response.status == "ok" && response.totalResults > 0 -> {
                         val updatedArticles = response.articles?.map {

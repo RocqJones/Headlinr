@@ -42,4 +42,18 @@ class NewsRepository(private val service: NewsService) {
             )
         }
     }
+
+    suspend fun getEverythingWithQuery(
+        query: String
+    ): TopHeadlineResponseModel {
+        return try {
+            service.getEverythingWithQuery(query = query)
+        } catch (e: Exception) {
+            TopHeadlineResponseModel(
+                status = "Error: ${e.message}",
+                totalResults = 0,
+                articles = emptyList()
+            )
+        }
+    }
 }

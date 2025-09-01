@@ -22,4 +22,13 @@ class NewsService(private val httpClient: HttpClient) {
         ).body()
         return response
     }
+
+    suspend fun getEverythingWithQuery(
+        query: String
+    ): TopHeadlineResponseModel {
+        val response : TopHeadlineResponseModel = httpClient.get(
+            "${Constants.baseUrl}${Constants.everythingEndpoint}?q=$query&apiKey=${Constants.apiKey}"
+        ).body()
+        return response
+    }
 }
