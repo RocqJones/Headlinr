@@ -31,6 +31,7 @@ import com.zonkesoft.headlinr.android.ui.common.texts.BoldText
 import com.zonkesoft.headlinr.android.ui.common.texts.BoldTextWithIcon
 import com.zonkesoft.headlinr.android.ui.common.texts.MediumText
 import com.zonkesoft.headlinr.android.ui.common.texts.RegularText
+import com.zonkesoft.headlinr.android.ui.navigation.Screen
 import com.zonkesoft.headlinr.android.ui.theme.fireColor
 import com.zonkesoft.headlinr.android.ui.theme.linkColor
 import com.zonkesoft.headlinr.presentation.state.TopStoriesUiState
@@ -52,6 +53,9 @@ fun HomeMainContent(
     val topStoriesState = newsViewModel.topHeadlinesState.collectAsState()
     val highlightsState = newsViewModel.highlightsState.collectAsState()
     val trendingState = newsViewModel.trendingState.collectAsState()
+
+    val trendingTitle = stringResource(R.string.trending)
+    val highlightsTitle = stringResource(R.string.highlights)
 
     Column(
         modifier = Modifier
@@ -105,12 +109,23 @@ fun HomeMainContent(
         SpacerCommon(size = 24, isVertical = true)
 
         SectionHeaderRow(
-            title = stringResource(R.string.trending),
+            title = trendingTitle,
             subTitle = stringResource(R.string.see_all),
             textColor = textColor,
             icon = painterResource(R.drawable.outline_local_fire_department_24),
             iconColor = fireColor
-        )
+        ) {
+            newsViewModel.setViewAllItems(
+                title = trendingTitle,
+                list = trendingState.value.let {
+                    when (it) {
+                        is TrendingUiState.TrendingContent -> it.trendingResults
+                        else -> emptyList()
+                    }
+                }
+            )
+            navController.navigate(Screen.ViewAllScreen.route)
+        }
 
         SpacerCommon(size = 16, isVertical = true)
 
@@ -128,7 +143,7 @@ fun HomeMainContent(
 
                 is TrendingUiState.TrendingContent -> {
                     TrendingContent(
-                        trending = it.trendingResults,
+                        trending = it.trendingResults.take(10),
                         textColor = textColor,
                         navController = navController,
                         newsViewModel = newsViewModel
@@ -140,10 +155,21 @@ fun HomeMainContent(
         SpacerCommon(size = 24, isVertical = true)
 
         SectionHeaderRow(
-            title = stringResource(R.string.highlights),
+            title = highlightsTitle,
             subTitle = stringResource(R.string.see_all),
             textColor = textColor
-        )
+        ) {
+            newsViewModel.setViewAllItems(
+                title = highlightsTitle,
+                list = highlightsState.value.let {
+                    when (it) {
+                        is HighlightsUiState.HighlightsContent -> it.highlightResults
+                        else -> emptyList()
+                    }
+                }
+            )
+            navController.navigate(Screen.ViewAllScreen.route)
+        }
 
         SpacerCommon(size = 16, isVertical = true)
 
@@ -161,7 +187,7 @@ fun HomeMainContent(
 
                 is HighlightsUiState.HighlightsContent -> {
                     HighlightsContent(
-                        highlights = it.searchResults,
+                        highlights = it.highlightResults.take(10),
                         textColor = textColor,
                         navController = navController,
                         newsViewModel = newsViewModel

@@ -31,7 +31,13 @@ class NewsViewModel(private val repository: NewsRepository) : BaseViewModel() {
     val searchState = _searchState
 
     private val _articlesModel = MutableStateFlow(ArticlesModel())
-    val articlesModel : StateFlow<ArticlesModel> get() = _articlesModel
+    val articlesModel: StateFlow<ArticlesModel> get() = _articlesModel
+
+    private val _viewAllTitle = MutableStateFlow("")
+    val viewAllTitle: StateFlow<String> get() = _viewAllTitle
+
+    private val _viewAllItems = MutableStateFlow(listOf<ArticlesModel>())
+    val viewAllItems: StateFlow<List<ArticlesModel>> get() = _viewAllItems
 
     init {
         getTopHeadlines()
@@ -92,7 +98,7 @@ class NewsViewModel(private val repository: NewsRepository) : BaseViewModel() {
 
                         _highlightsState.emit(HighlightsUiState.Loading(loading = false))
                         _highlightsState.emit(
-                            HighlightsUiState.HighlightsContent(searchResults = updatedArticles)
+                            HighlightsUiState.HighlightsContent(highlightResults = updatedArticles)
                         )
                     }
 
@@ -158,8 +164,13 @@ class NewsViewModel(private val repository: NewsRepository) : BaseViewModel() {
     }
 
     fun setArticlesModel(articlesModel: ArticlesModel) {
+        scope.launch { _articlesModel.emit(articlesModel) }
+    }
+
+    fun setViewAllItems(title : String, list: List<ArticlesModel>) {
         scope.launch {
-            _articlesModel.emit(articlesModel)
+            _viewAllTitle.emit(title)
+            _viewAllItems.emit(list)
         }
     }
 }
