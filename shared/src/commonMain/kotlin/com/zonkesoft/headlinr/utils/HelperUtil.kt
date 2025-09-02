@@ -18,18 +18,19 @@ object HelperUtil {
             val year = now.date.year
             return "$dayOfWeek, $day $month $year"
         } catch (e: Exception) {
-            Error("Error setting up today's date: ${e.message}")
+            println("Error setting up today's date: ${e.message}")
             return "Unknown Date"
         }
     }
 
     fun getDefaultCountryCode(): String {
         return try {
-            //getPlatformCountryCode()
+            // Default to "us" as the country code. If platform-specific retrieval is needed,
+            // implement getPlatformCountryCode() and use it here.
             "us"
         } catch (e: Exception) {
             println("Error getting default country code: ${e.message}")
-            "US" // fallback country code
+            "us" // fallback country code
         }
     }
 

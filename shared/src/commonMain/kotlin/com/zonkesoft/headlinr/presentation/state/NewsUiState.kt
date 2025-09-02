@@ -20,7 +20,7 @@ sealed class HighlightsUiState {
         val message: String
     ) : HighlightsUiState()
     data class HighlightsContent(
-        val searchResults: List<ArticlesModel> = listOf(),
+        val highlightResults: List<ArticlesModel> = listOf(),
     ) : HighlightsUiState()
 }
 

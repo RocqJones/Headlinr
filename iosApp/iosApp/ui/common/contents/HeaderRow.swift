@@ -8,24 +8,34 @@
 import SwiftUI
 
 struct HeaderRow: View {
-    var title: String
-    var action: String
+    let title: String
+    let action: String
     var icon: String? = nil
+    var onActionTap: (() -> Void)? = nil
 
     var body: some View {
         HStack {
-            if let icon = icon {
-                Label(title, systemImage: icon)
-                    .font(.headline)
-            } else {
+            HStack(spacing: 8) {
+                if let icon = icon {
+                    Image(systemName: icon)
+                        .foregroundColor(.orange)
+                }
                 Text(title)
-                    .font(.headline)
+                    .font(.title2)
+                    .fontWeight(.bold)
             }
 
             Spacer()
-            Text(action)
-                .foregroundColor(.blue)
-                .font(.subheadline)
+
+            if !action.isEmpty {
+                Button(action: {
+                    onActionTap?()
+                }) {
+                    Text(action)
+                        .font(.subheadline)
+                        .foregroundColor(.blue)
+                }
+            }
         }
     }
 }

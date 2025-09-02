@@ -5,9 +5,7 @@
 //  Created by JonesMbindyo on 08/05/2025.
 //  Copyright © 2025 orgName. All rights reserved.
 //
-import SwiftUI
-import shared
-
+//
 import SwiftUI
 import shared
 
@@ -18,6 +16,7 @@ struct HomeScreen: View {
     @State private var showMenuSheet = false
     @State private var showProfileSheet = false
     @State private var navigateToViewMore = false
+    @State private var navigateToViewAll = false
 
     var body: some View {
         NavigationStack {
@@ -35,10 +34,45 @@ struct HomeScreen: View {
                     topStoriesSection
 
                     // TRENDING SECTION
-                    HeaderRow(title: "Trending", action: "See All", icon: "flame.fill")
+                    HeaderRow(
+                        title: "Trending",
+                        action: "See All",
+                        icon: "flame.fill"
+                    ) {
+                        switch newsViewModelWrapper.trendingState {
+                        case let content as TrendingUiState.TrendingContent:
+                            newsViewModelWrapper.newsViewModel.setViewAllItems(
+                                title: "Trending",
+                                list: content.trendingResults
+                            )
+                            navigateToViewAll = true
+                        default:
+                            break
+                        }
+                    }
+
+                    trendingSection
 
                     // HIGHLIGHTS SECTION
-                    HeaderRow(title: "Highlights", action: "See All")
+                    HeaderRow(
+                        title: "Highlights",
+                        action: "See All",
+                        icon: "newspaper.fill"
+                    ) {
+                        switch newsViewModelWrapper.highlightsState {
+                        case let content as HighlightsUiState.HighlightsContent:
+                            newsViewModelWrapper.newsViewModel.setViewAllItems(
+                                title: "Highlights",
+                                list: content.highlightResults
+                            )
+                            navigateToViewAll = true
+                        default:
+                            break
+                        }
+                    }
+
+                    highlightsSection
+
                 }.padding().onAppear {
                     newsViewModelWrapper.startObserving()
                 }
@@ -68,6 +102,9 @@ struct HomeScreen: View {
             .navigationDestination(isPresented: $navigateToViewMore) {
                 ViewMoreScreen(newsViewModelWrapper: newsViewModelWrapper)
             }
+            .navigationDestination(isPresented: $navigateToViewAll) {
+                ViewAllScreen(newsViewModelWrapper: newsViewModelWrapper)
+            }
         }
     }
 
@@ -88,6 +125,56 @@ struct HomeScreen: View {
                 textColor: .primary
             ) { selectedStory in
                 newsViewModelWrapper.newsViewModel.setArticlesModel(articlesModel: selectedStory)
+                navigateToViewMore = true
+            }
+
+        default:
+            EmptyView()
+        }
+    }
+
+    @ViewBuilder
+    var trendingSection: some View {
+        switch newsViewModelWrapper.trendingState {
+        case let loading as TrendingUiState.Loading:
+            if loading.loading {
+                ProgressView().frame(maxWidth: .infinity).padding()
+            }
+
+        case let error as TrendingUiState.Error:
+            ErrorMessageView(title: error.title, message: error.message)
+
+        case let content as TrendingUiState.TrendingContent:
+            TrendingContent(
+                trending: Array(content.trendingResults.prefix(10)),
+                textColor: .primary
+            ) { selectedItem in
+                newsViewModelWrapper.newsViewModel.setArticlesModel(articlesModel: selectedItem)
+                navigateToViewMore = true
+            }
+
+        default:
+            EmptyView()
+        }
+    }
+
+    @ViewBuilder
+    var highlightsSection: some View {
+        switch newsViewModelWrapper.highlightsState {
+        case let loading as HighlightsUiState.Loading:
+            if loading.loading {
+                ProgressView().frame(maxWidth: .infinity).padding()
+            }
+
+        case let error as HighlightsUiState.Error:
+            ErrorMessageView(title: error.title, message: error.message)
+
+        case let content as HighlightsUiState.HighlightsContent:
+            HighlightsContent(
+                highlights: Array(content.highlightResults.prefix(10)),
+                textColor: .primary
+            ) { selectedItem in
+                newsViewModelWrapper.newsViewModel.setArticlesModel(articlesModel: selectedItem)
                 navigateToViewMore = true
             }
 

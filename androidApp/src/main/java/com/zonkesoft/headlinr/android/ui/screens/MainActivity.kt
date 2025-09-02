@@ -21,6 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.zonkesoft.headlinr.android.ui.navigation.Screen
+import com.zonkesoft.headlinr.android.ui.screens.more.ViewAllScreen
 import com.zonkesoft.headlinr.android.ui.screens.more.ViewMoreScreen
 import com.zonkesoft.headlinr.android.ui.theme.MyApplicationTheme
 import com.zonkesoft.headlinr.presentation.vm.InterfaceViewModel
@@ -72,6 +73,13 @@ fun NavigationGraph(
                 modifier = Modifier.fillMaxSize().padding(WindowInsets.statusBars.asPaddingValues())
             ) {
                 ViewMoreScreen(navController, textColor, backgroundColor, newsViewModel)
+            }
+        }
+        composable(Screen.ViewAllScreen.route) {
+            Box(
+                modifier = Modifier.fillMaxSize().padding(WindowInsets.statusBars.asPaddingValues())
+            ) {
+                ViewAllScreen(navController, textColor, newsViewModel)
             }
         }
     }
