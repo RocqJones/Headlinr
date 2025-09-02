@@ -42,7 +42,7 @@ class NewsViewModel(private val repository: NewsRepository) : BaseViewModel() {
     init {
         getTopHeadlines()
         getHighlights()
-        getTrending()
+        getTrendingByQuery()
         // TODO: Call getSearchResults() here
     }
 

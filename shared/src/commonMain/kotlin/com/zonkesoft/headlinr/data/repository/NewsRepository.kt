@@ -2,6 +2,7 @@ package com.zonkesoft.headlinr.data.repository
 
 import com.zonkesoft.headlinr.data.models.ApiResponseModel
 import com.zonkesoft.headlinr.network.service.NewsService
+import com.zonkesoft.headlinr.utils.Constants
 
 class NewsRepository(private val service: NewsService) {
 
@@ -27,10 +28,10 @@ class NewsRepository(private val service: NewsService) {
     suspend fun getHighlights(forceRefresh: Boolean = false): ApiResponseModel {
         try {
             val highlights = when {
-                forceRefresh -> { service.getEverythingWithQuery(query = "all") }
+                forceRefresh -> { service.getEverythingWithQuery(query = Constants.all) }
                 else -> {
                     // Logic to fetch from local storage or cache
-                    service.getEverythingWithQuery(query = "all")
+                    service.getEverythingWithQuery(query = Constants.all)
                 }
             }
             return highlights

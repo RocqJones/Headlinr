@@ -6,5 +6,6 @@ object Constants {
     internal const val baseUrl = "https://newsapi.org/v2"
     internal const val topHeadlinesEndpoint = "/top-headlines"
     internal const val everythingEndpoint = "/everything"
+    internal const val all = "all"
     internal val apiKey = PlatformImplementation().getApiKey()
 }
