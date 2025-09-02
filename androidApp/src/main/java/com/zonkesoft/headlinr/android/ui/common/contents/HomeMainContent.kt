@@ -157,7 +157,9 @@ fun HomeMainContent(
         SectionHeaderRow(
             title = highlightsTitle,
             subTitle = stringResource(R.string.see_all),
-            textColor = textColor
+            textColor = textColor,
+            icon = painterResource(R.drawable.outline_newspaper_24),
+            iconColor = fireColor
         ) {
             newsViewModel.setViewAllItems(
                 title = highlightsTitle,
