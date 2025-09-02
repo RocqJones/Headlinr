@@ -55,7 +55,8 @@ struct HomeScreen: View {
                     // HIGHLIGHTS SECTION
                     HeaderRow(
                         title: "Highlights",
-                        action: "See All"
+                        action: "See All",
+                        icon: "newspaper.fill"
                     ) {
                         switch newsViewModelWrapper.highlightsState {
                         case let content as HighlightsUiState.HighlightsContent:
