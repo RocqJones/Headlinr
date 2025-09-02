@@ -5,6 +5,8 @@
 //  Created by JonesMbindyo on 18/06/2025.
 //  Copyright © 2025 orgName. All rights reserved.
 //
+import SwiftUI
+import shared
 
 @MainActor
 class NewsViewModelWrapper: ObservableObject {

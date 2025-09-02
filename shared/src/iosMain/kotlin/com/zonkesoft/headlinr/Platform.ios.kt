@@ -6,12 +6,13 @@ import platform.Foundation.dictionaryWithContentsOfFile
 import platform.UIKit.UIDevice
 
 class IOSPlatform() : Platform {
-    override val name: String = UIDevice.currentDevice.systemName() + " " + UIDevice.currentDevice.systemVersion
+    override val name: String = (UIDevice.currentDevice.systemName() + " " + UIDevice.currentDevice.systemVersion)
 
-        ?: throw IllegalStateException("Secrets.plist not found in configuration")
+    val dict = NSDictionary.dictionaryWithContentsOfFile(
+        NSBundle.mainBundle.pathForResource("Secrets", "plist") ?: ""
+    ) as NSDictionary?
 
-    val apiKey: String = dict?.objectForKey("NEWS_API_KEY") as? String
-        ?: throw IllegalStateException("NEWS_API_KEY not found in Secrets.plist")
+    override val apiKey: String = dict?.objectForKey("NEWS_API_KEY") as? String ?: ""
 }
 
 actual fun getPlatform(): Platform = IOSPlatform()
