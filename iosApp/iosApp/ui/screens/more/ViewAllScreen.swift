@@ -12,9 +12,10 @@ import shared
 struct ViewAllScreen: View {
     @ObservedObject var newsViewModelWrapper: NewsViewModelWrapper
     @Environment(\.dismiss) private var dismiss
+    @State private var navigateToViewMore = false
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     // Header with back button and title
@@ -42,12 +43,15 @@ struct ViewAllScreen: View {
                         textColor: .primary
                     ) { selectedItem in
                         newsViewModelWrapper.newsViewModel.setArticlesModel(articlesModel: selectedItem)
-                        // Navigation to ViewMoreScreen would be handled by parent
+                        navigateToViewMore = true
                     }
                     .padding(.horizontal)
                 }
             }
             .navigationBarHidden(true)
+            .navigationDestination(isPresented: $navigateToViewMore) {
+                ViewMoreScreen(newsViewModelWrapper: newsViewModelWrapper)
+            }
         }
         .navigationBarHidden(true)
     }
