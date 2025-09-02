@@ -124,7 +124,7 @@ class NewsViewModel(private val repository: NewsRepository) : BaseViewModel() {
         }
     }
 
-    fun getTrending(query: String = "trending") {
+    fun getTrendingByQuery(query: String = "trending") {
         scope.launch {
             _trendingState.emit(TrendingUiState.Loading(loading = true))
             try {
