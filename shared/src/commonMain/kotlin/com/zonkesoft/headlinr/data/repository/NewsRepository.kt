@@ -27,10 +27,10 @@ class NewsRepository(private val service: NewsService) {
     suspend fun getHighlights(forceRefresh: Boolean = false): ApiResponseModel {
         try {
             val highlights = when {
-                forceRefresh -> { service.getHighlights() }
+                forceRefresh -> { service.getEverythingWithQuery(query = "all") }
                 else -> {
                     // Logic to fetch from local storage or cache
-                    service.getHighlights()
+                    service.getEverythingWithQuery(query = "all")
                 }
             }
             return highlights

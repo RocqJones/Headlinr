@@ -16,13 +16,6 @@ class NewsService(private val httpClient: HttpClient) {
         return response
     }
 
-    suspend fun getHighlights(): ApiResponseModel {
-        val response : ApiResponseModel = httpClient.get(
-            "${Constants.baseUrl}${Constants.everythingEndpoint}?q=all&apiKey=${Constants.apiKey}"
-        ).body()
-        return response
-    }
-
     suspend fun getEverythingWithQuery(
         query: String
     ): ApiResponseModel {
