@@ -12,13 +12,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.core.content.res.ResourcesCompat
 import com.zonkesoft.headlinr.android.R
+import com.zonkesoft.headlinr.android.utils.Constants.DEFAULT_TITLE_MAX_LINE
 
 @Composable
 fun BoldText(
     text: String,
     textColor: Color,
     fontSize: TextUnit,
-    maxLines: Int = 10,
+    maxLines: Int = DEFAULT_TITLE_MAX_LINE,
     textAlign: TextAlign?,
     modifier: Modifier = Modifier
 ) {
