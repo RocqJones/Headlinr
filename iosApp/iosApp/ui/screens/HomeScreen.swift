@@ -43,6 +43,7 @@ struct HomeScreen: View {
                         case let content as TrendingUiState.TrendingContent:
                             newsViewModelWrapper.newsViewModel.setViewAllItems(
                                 title: "Trending",
+                                isTopics: false,
                                 list: content.trendingResults
                             )
                             navigateToViewAll = true
@@ -63,6 +64,7 @@ struct HomeScreen: View {
                         case let content as HighlightsUiState.HighlightsContent:
                             newsViewModelWrapper.newsViewModel.setViewAllItems(
                                 title: "Highlights",
+                                isTopics: false,
                                 list: content.highlightResults
                             )
                             navigateToViewAll = true
@@ -94,7 +96,16 @@ struct HomeScreen: View {
                 }
             }
             .sheet(isPresented: $showMenuSheet) {
-                MenuContent(viewModel: interfaceViewModelWrapper)
+                MenuContent(viewModel: interfaceViewModelWrapper) { topicTitle in
+                    showMenuSheet = false
+                    newsViewModelWrapper.newsViewModel.getTopicsByQuery(query: topicTitle)
+                    newsViewModelWrapper.newsViewModel.setViewAllItems(
+                        title: topicTitle,
+                        isTopics: true,
+                        list: []
+                    )
+                    navigateToViewAll = true
+                }
             }
             .sheet(isPresented: $showProfileSheet) {
                 ProfileContent(viewModel: interfaceViewModelWrapper)
