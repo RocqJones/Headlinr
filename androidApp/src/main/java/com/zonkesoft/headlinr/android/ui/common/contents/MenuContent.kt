@@ -23,25 +23,12 @@ import com.zonkesoft.headlinr.presentation.vm.InterfaceViewModel
 @Composable
 fun MenuContent(
     textColor: Color,
-    interfaceViewModel: InterfaceViewModel
+    interfaceViewModel: InterfaceViewModel,
+    onTopicClick: (String) -> Unit = {}
 ) {
     val topics = interfaceViewModel.topics.collectAsState()
 
     Column(modifier = Modifier.padding(16.dp)) {
-        // Limit to 5 search items
-        /*BoldText(
-            text = "Recent searches...",
-            textColor = textColor,
-            fontSize = 20.sp,
-            textAlign = TextAlign.Start
-        )
-
-        SpacerCommon(8, isVertical = true)
-
-        LazyColumn {}
-
-        SpacerCommon(16, isVertical = true)*/
-
         BoldText(
             text = stringResource(R.string.topics),
             textColor = textColor,
@@ -61,7 +48,8 @@ fun MenuContent(
                     fontSize = 14.sp,
                     textAlign = TextAlign.Start,
                     iconColor = logoColor,
-                    hasBorder = false
+                    hasBorder = false,
+                    clickable = { onTopicClick(topicItem.title) }
                 )
 
                 SpacerCommon(8, isVertical = true)

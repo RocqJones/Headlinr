@@ -7,5 +7,6 @@ object Constants {
     internal const val topHeadlinesEndpoint = "/top-headlines"
     internal const val everythingEndpoint = "/everything"
     internal const val all = "all"
+    internal const val trending = "trending"
     internal val apiKey = PlatformImplementation().getApiKey()
 }
