@@ -5,11 +5,7 @@
 //  Created by JonesMbindyo on 18/06/2025.
 //  Copyright © 2025 orgName. All rights reserved.
 //
-
-import Foundation
-import shared
-
-import Foundation
+import SwiftUI
 import shared
 
 @MainActor
@@ -23,7 +19,11 @@ class NewsViewModelWrapper: ObservableObject {
     @Published var articlesModel: ArticlesModel
     @Published var highlightsState: HighlightsUiState
     @Published var trendingState: TrendingUiState
-    
+    @Published var viewAllTitle: String
+    @Published var viewAllItems: [ArticlesModel]
+    @Published var topicsState: TopicsUiState
+    @Published var isTopics: Bool
+
     init() {
         self.injector = NewsInjector()
         self.newsViewModel = injector.newsViewModel
@@ -33,6 +33,10 @@ class NewsViewModelWrapper: ObservableObject {
         self.articlesModel = newsViewModel.articlesModel.value
         self.highlightsState = newsViewModel.highlightsState.value
         self.trendingState = newsViewModel.trendingState.value
+        self.viewAllTitle = newsViewModel.viewAllTitle.value
+        self.viewAllItems = newsViewModel.viewAllItems.value
+        self.topicsState = newsViewModel.topicsState.value
+        self.isTopics = newsViewModel.isTopics.value.boolValue
     }
     
     func startObserving() {
@@ -58,6 +62,30 @@ class NewsViewModelWrapper: ObservableObject {
         Task {
             for await item in newsViewModel.trendingState {
                 self.trendingState = item
+            }
+        }
+
+        Task {
+            for await item in newsViewModel.viewAllTitle {
+                self.viewAllTitle = item
+            }
+        }
+
+        Task {
+            for await item in newsViewModel.viewAllItems {
+                self.viewAllItems = item
+            }
+        }
+        
+        Task {
+            for await item in newsViewModel.topicsState {
+                self.topicsState = item
+            }
+        }
+
+        Task {
+            for await item in newsViewModel.isTopics {
+                self.isTopics = item.boolValue
             }
         }
     }

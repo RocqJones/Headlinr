@@ -6,7 +6,9 @@ import com.zonkesoft.headlinr.data.repository.NewsRepository
 import com.zonkesoft.headlinr.presentation.state.TopStoriesUiState
 import com.zonkesoft.headlinr.presentation.state.HighlightsUiState
 import com.zonkesoft.headlinr.presentation.state.SearchUiState
+import com.zonkesoft.headlinr.presentation.state.TopicsUiState
 import com.zonkesoft.headlinr.presentation.state.TrendingUiState
+import com.zonkesoft.headlinr.utils.Constants
 import com.zonkesoft.headlinr.utils.HelperUtil
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -31,11 +33,25 @@ class NewsViewModel(private val repository: NewsRepository) : BaseViewModel() {
     val searchState = _searchState
 
     private val _articlesModel = MutableStateFlow(ArticlesModel())
-    val articlesModel : StateFlow<ArticlesModel> get() = _articlesModel
+    val articlesModel: StateFlow<ArticlesModel> get() = _articlesModel
+
+    private val _viewAllTitle = MutableStateFlow("")
+    val viewAllTitle: StateFlow<String> get() = _viewAllTitle
+
+    private val _isTopics = MutableStateFlow(false)
+    val isTopics: StateFlow<Boolean> get() = _isTopics
+
+    private val _viewAllItems = MutableStateFlow(listOf<ArticlesModel>())
+    val viewAllItems: StateFlow<List<ArticlesModel>> get() = _viewAllItems
+
+    private val _topicsState: MutableStateFlow<TopicsUiState> =
+        MutableStateFlow(TopicsUiState.Loading(loading = true))
+    val topicsState = _topicsState
 
     init {
         getTopHeadlines()
-        // TODO: Call getHighlights(), getTrending(), and getSearchResults() here if/when needed
+        getHighlights()
+        getTrendingByQuery(null)
     }
 
     fun getTopHeadlines(forceFetch: Boolean = false) {
@@ -81,7 +97,7 @@ class NewsViewModel(private val repository: NewsRepository) : BaseViewModel() {
         scope.launch {
             _highlightsState.emit(HighlightsUiState.Loading(loading = true))
             try {
-                val response = repository.getTopHeadlines(forceFetch)
+                val response = repository.getHighlights(forceFetch)
                 when {
                     response.status == "ok" && response.totalResults > 0 -> {
                         val updatedArticles = response.articles?.map {
@@ -90,7 +106,7 @@ class NewsViewModel(private val repository: NewsRepository) : BaseViewModel() {
 
                         _highlightsState.emit(HighlightsUiState.Loading(loading = false))
                         _highlightsState.emit(
-                            HighlightsUiState.HighlightsContent(searchResults = updatedArticles)
+                            HighlightsUiState.HighlightsContent(highlightResults = updatedArticles)
                         )
                     }
 
@@ -116,11 +132,11 @@ class NewsViewModel(private val repository: NewsRepository) : BaseViewModel() {
         }
     }
 
-    fun getTrending(forceFetch: Boolean = false) {
+    fun getTrendingByQuery(query: String?) {
         scope.launch {
             _trendingState.emit(TrendingUiState.Loading(loading = true))
             try {
-                val response = repository.getTopHeadlines(forceFetch)
+                val response = repository.getEverythingWithQuery(query ?: Constants.trending)
                 when {
                     response.status == "ok" && response.totalResults > 0 -> {
                         val updatedArticles = response.articles?.map {
@@ -155,9 +171,64 @@ class NewsViewModel(private val repository: NewsRepository) : BaseViewModel() {
         }
     }
 
-    fun setArticlesModel(articlesModel: ArticlesModel) {
+    fun getTopicsByQuery(query: String?) {
         scope.launch {
-            _articlesModel.emit(articlesModel)
+            _topicsState.emit(TopicsUiState.Loading(loading = true))
+            try {
+                val response = repository.getEverythingWithQuery(query ?: Constants.trending)
+                when {
+                    response.status == "ok" && response.totalResults > 0 -> {
+                        val updatedArticles = response.articles?.map {
+                            it.copy(publishedAt = HelperUtil.convertDate(it.publishedAt ?: ""))
+                        } ?: listOf()
+
+                        _topicsState.emit(TopicsUiState.Loading(loading = false))
+                        _topicsState.emit(
+                            TopicsUiState.TopicsContent(topicsResults = updatedArticles)
+                        )
+
+                        // Update ViewAllScreen data
+                        setViewAllItems(query ?: Constants.trending, true, updatedArticles)
+                    }
+
+                    else -> {
+                        _topicsState.emit(TopicsUiState.Loading(loading = false))
+                        _topicsState.emit(
+                            TopicsUiState.Error(
+                                title = "Error fetching topic",
+                                message = response.status ?: "Unknown error"
+                            )
+                        )
+                        setViewAllItems(query ?: Constants.trending, true, emptyList())
+                    }
+                }
+            } catch (e: Exception) {
+                _topicsState.emit(TopicsUiState.Loading(loading = false))
+                _topicsState.emit(
+                    TopicsUiState.Error(
+                        title = "Exception while fetching topic",
+                        message = e.message ?: "Unknown error"
+                    )
+                )
+
+                setViewAllItems(query ?: Constants.trending, true, emptyList())
+            }
+        }
+    }
+
+    fun setArticlesModel(articlesModel: ArticlesModel) {
+        scope.launch { _articlesModel.emit(articlesModel) }
+    }
+
+    fun setViewAllItems(
+        title: String,
+        isTopics: Boolean = false,
+        list: List<ArticlesModel>
+    ) {
+        scope.launch {
+            _viewAllTitle.emit(title)
+            _isTopics.emit(isTopics)
+            _viewAllItems.emit(list)
         }
     }
 }

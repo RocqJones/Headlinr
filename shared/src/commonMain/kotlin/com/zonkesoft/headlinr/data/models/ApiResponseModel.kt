@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TopHeadlineResponseModel(
+data class ApiResponseModel(
     @SerialName("status") val status: String? = null,
     @SerialName("totalResults") val totalResults: Int,
     @SerialName("articles") val articles: List<ArticlesModel>? = null
