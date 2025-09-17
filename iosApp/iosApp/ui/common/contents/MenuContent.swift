@@ -30,7 +30,7 @@ struct MenuContent: View {
                     }
                 }
             }
-            .navigationTitle("Menu")
+            .navigationTitle("Explore")
         }
     }
 }

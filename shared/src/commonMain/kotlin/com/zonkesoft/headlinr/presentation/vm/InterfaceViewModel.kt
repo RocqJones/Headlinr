@@ -40,12 +40,15 @@ class InterfaceViewModel() : BaseViewModel() {
     private fun setupTopics() {
         try {
             _topics.value = listOf(
-                Topics(icon = null, title = "Business"),
-                Topics(icon = null, title = "Entertainment"),
                 Topics(icon = null, title = "Health"),
                 Topics(icon = null, title = "Science"),
                 Topics(icon = null, title = "Sports"),
-                Topics(icon = null, title = "Technology")
+                Topics(icon = null, title = "Technology"),
+                Topics(icon = null, title = "Artificial Intelligence"),
+                Topics(icon = null, title = "Climate Change"),
+                Topics(icon = null, title = "Cryptocurrency"),
+                Topics(icon = null, title = "Elections"),
+                Topics(icon = null, title = "Business")
             )
         } catch (e: Exception) {
             println("Error setting up topics: ${e.message}")
