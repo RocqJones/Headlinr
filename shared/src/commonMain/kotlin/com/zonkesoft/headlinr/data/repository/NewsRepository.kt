@@ -9,7 +9,10 @@ class NewsRepository(private val service: NewsService) {
     suspend fun getTopHeadlines(forceRefresh: Boolean = false): ApiResponseModel {
         try {
             val topHeadlines = when {
-                forceRefresh -> { service.getTopHeadlines() }
+                forceRefresh -> {
+                    service.getTopHeadlines()
+                }
+
                 else -> {
                     // Logic to fetch from local storage or cache
                     service.getTopHeadlines()
@@ -28,7 +31,10 @@ class NewsRepository(private val service: NewsService) {
     suspend fun getHighlights(forceRefresh: Boolean = false): ApiResponseModel {
         try {
             val highlights = when {
-                forceRefresh -> { service.getEverythingWithQuery(query = Constants.all) }
+                forceRefresh -> {
+                    service.getEverythingWithQuery(query = Constants.all)
+                }
+
                 else -> {
                     // Logic to fetch from local storage or cache
                     service.getEverythingWithQuery(query = Constants.all)

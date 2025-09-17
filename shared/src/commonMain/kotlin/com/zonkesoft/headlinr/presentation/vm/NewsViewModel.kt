@@ -199,7 +199,7 @@ class NewsViewModel(private val repository: NewsRepository) : BaseViewModel() {
                                 message = response.status ?: "Unknown error"
                             )
                         )
-                        setViewAllItems(query ?: Constants.trending, true,emptyList())
+                        setViewAllItems(query ?: Constants.trending, true, emptyList())
                     }
                 }
             } catch (e: Exception) {
@@ -221,7 +221,7 @@ class NewsViewModel(private val repository: NewsRepository) : BaseViewModel() {
     }
 
     fun setViewAllItems(
-        title : String,
+        title: String,
         isTopics: Boolean = false,
         list: List<ArticlesModel>
     ) {
