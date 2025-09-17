@@ -20,7 +20,7 @@ sealed class HighlightsUiState {
         val message: String
     ) : HighlightsUiState()
     data class HighlightsContent(
-        val searchResults: List<ArticlesModel> = listOf(),
+        val highlightResults: List<ArticlesModel> = listOf(),
     ) : HighlightsUiState()
 }
 
@@ -44,4 +44,15 @@ sealed class SearchUiState {
     data class SearchContent(
         val searchResults: List<ArticlesModel> = listOf(),
     ) : SearchUiState()
+}
+
+sealed class TopicsUiState {
+    data class Loading(val loading: Boolean = false) : TopicsUiState()
+    data class Error(
+        val title: String = "Something went wrong!",
+        val message: String
+    ) : TopicsUiState()
+    data class TopicsContent(
+        val topicsResults: List<ArticlesModel> = listOf(),
+    ) : TopicsUiState()
 }

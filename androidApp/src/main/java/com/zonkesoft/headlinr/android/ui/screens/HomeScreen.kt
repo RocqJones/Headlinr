@@ -30,6 +30,7 @@ import com.zonkesoft.headlinr.android.ui.common.contents.HomeMainContent
 import com.zonkesoft.headlinr.android.ui.common.contents.MenuContent
 import com.zonkesoft.headlinr.android.ui.common.contents.ProfileContent
 import com.zonkesoft.headlinr.android.ui.common.contents.TopAppBarContent
+import com.zonkesoft.headlinr.android.ui.navigation.Screen
 import com.zonkesoft.headlinr.android.ui.theme.MyApplicationTheme
 import com.zonkesoft.headlinr.presentation.vm.InterfaceViewModel
 import com.zonkesoft.headlinr.presentation.vm.NewsViewModel
@@ -81,7 +82,18 @@ fun HomeScreen(
                 onDismissRequest = { showMenuBottomSheet = false },
                 sheetState = sheetState
             ) {
-                MenuContent(textColor, interfaceViewModel)
+                MenuContent(
+                    textColor = textColor,
+                    interfaceViewModel = interfaceViewModel,
+                    onTopicClick = { topicTitle ->
+                        showMenuBottomSheet = false
+                        newsViewModel.getTopicsByQuery(topicTitle)
+                        newsViewModel.setViewAllItems(
+                            title = topicTitle, isTopics = true, list = emptyList()
+                        )
+                        navController.navigate(Screen.ViewAllScreen.route)
+                    }
+                )
             }
         }
     }
