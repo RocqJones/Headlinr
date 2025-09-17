@@ -37,15 +37,19 @@ struct ViewAllScreen: View {
                     }
                     .padding(.horizontal)
 
-                    // Content list using TrendingContentView for consistent styling
-                    TrendingContent(
-                        trending: newsViewModelWrapper.viewAllItems,
-                        textColor: .primary
-                    ) { selectedItem in
-                        newsViewModelWrapper.newsViewModel.setArticlesModel(articlesModel: selectedItem)
-                        navigateToViewMore = true
+                    if newsViewModelWrapper.isTopics {
+                        topicsContent
+                    } else {
+                        // Regular content using viewAllItems
+                        TrendingContent(
+                            trending: newsViewModelWrapper.viewAllItems,
+                            textColor: .primary
+                        ) { selectedItem in
+                            newsViewModelWrapper.newsViewModel.setArticlesModel(articlesModel: selectedItem)
+                            navigateToViewMore = true
+                        }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
                 }
             }
             .navigationBarHidden(true)
@@ -54,5 +58,33 @@ struct ViewAllScreen: View {
             }
         }
         .navigationBarHidden(true)
+    }
+
+    @ViewBuilder
+    var topicsContent: some View {
+        switch newsViewModelWrapper.topicsState {
+        case let loading as TopicsUiState.Loading:
+            if loading.loading {
+                ProgressView().frame(maxWidth: .infinity).padding()
+            }
+
+        case let error as TopicsUiState.Error:
+            ErrorMessageView(title: error.title, message: error.message)
+
+        case let content as TopicsUiState.TopicsContent:
+            TrendingContent(
+                trending: content.topicsResults,
+                textColor: .primary
+            ) { selectedItem in
+                newsViewModelWrapper.newsViewModel.setArticlesModel(
+                    articlesModel: selectedItem
+                )
+                navigateToViewMore = true
+            }
+            .padding(.horizontal)
+
+        default:
+            EmptyView()
+        }
     }
 }

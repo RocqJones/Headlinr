@@ -45,3 +45,14 @@ sealed class SearchUiState {
         val searchResults: List<ArticlesModel> = listOf(),
     ) : SearchUiState()
 }
+
+sealed class TopicsUiState {
+    data class Loading(val loading: Boolean = false) : TopicsUiState()
+    data class Error(
+        val title: String = "Something went wrong!",
+        val message: String
+    ) : TopicsUiState()
+    data class TopicsContent(
+        val topicsResults: List<ArticlesModel> = listOf(),
+    ) : TopicsUiState()
+}

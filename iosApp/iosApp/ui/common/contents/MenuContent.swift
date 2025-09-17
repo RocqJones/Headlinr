@@ -10,6 +10,7 @@ import shared
 
 struct MenuContent: View {
     @ObservedObject var viewModel: InterfaceViewModelWrapper
+    var onTopicClick: (String) -> Void = { _ in }
 
     var body: some View {
         NavigationView {
@@ -22,10 +23,14 @@ struct MenuContent: View {
                             Image(systemName: "arrow.up.right")
                                 .foregroundColor(Color.logoColor)
                         }
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            onTopicClick(topic.title)
+                        }
                     }
                 }
             }
-            .navigationTitle("Menu")
+            .navigationTitle("Explore")
         }
     }
 }

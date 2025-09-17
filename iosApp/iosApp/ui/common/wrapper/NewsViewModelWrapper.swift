@@ -21,6 +21,8 @@ class NewsViewModelWrapper: ObservableObject {
     @Published var trendingState: TrendingUiState
     @Published var viewAllTitle: String
     @Published var viewAllItems: [ArticlesModel]
+    @Published var topicsState: TopicsUiState
+    @Published var isTopics: Bool
 
     init() {
         self.injector = NewsInjector()
@@ -33,6 +35,8 @@ class NewsViewModelWrapper: ObservableObject {
         self.trendingState = newsViewModel.trendingState.value
         self.viewAllTitle = newsViewModel.viewAllTitle.value
         self.viewAllItems = newsViewModel.viewAllItems.value
+        self.topicsState = newsViewModel.topicsState.value
+        self.isTopics = newsViewModel.isTopics.value.boolValue
     }
     
     func startObserving() {
@@ -70,6 +74,18 @@ class NewsViewModelWrapper: ObservableObject {
         Task {
             for await item in newsViewModel.viewAllItems {
                 self.viewAllItems = item
+            }
+        }
+        
+        Task {
+            for await item in newsViewModel.topicsState {
+                self.topicsState = item
+            }
+        }
+
+        Task {
+            for await item in newsViewModel.isTopics {
+                self.isTopics = item.boolValue
             }
         }
     }

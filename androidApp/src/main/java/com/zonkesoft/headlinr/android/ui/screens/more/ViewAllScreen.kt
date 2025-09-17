@@ -20,10 +20,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.zonkesoft.headlinr.android.R
+import com.zonkesoft.headlinr.android.ui.common.contents.ErrorMessage
 import com.zonkesoft.headlinr.android.ui.common.contents.TrendingContent
+import com.zonkesoft.headlinr.android.ui.common.dialogs.LottieLoader
 import com.zonkesoft.headlinr.android.ui.common.spacers.SpacerCommon
 import com.zonkesoft.headlinr.android.ui.common.texts.MediumText
 import com.zonkesoft.headlinr.android.ui.theme.linkColor
+import com.zonkesoft.headlinr.presentation.state.TopicsUiState
 import com.zonkesoft.headlinr.presentation.vm.NewsViewModel
 
 @Composable
@@ -34,6 +37,8 @@ fun ViewAllScreen(
 ) {
     val title = newsViewModel.viewAllTitle.collectAsState().value
     val items = newsViewModel.viewAllItems.collectAsState().value
+    val isTopics = newsViewModel.isTopics.collectAsState().value
+    val topicsState = newsViewModel.topicsState.collectAsState()
 
     Box {
         Column(
@@ -64,12 +69,41 @@ fun ViewAllScreen(
 
             SpacerCommon(size = 24, isVertical = true)
 
-            TrendingContent(
-                trending = items,
-                textColor = textColor,
-                navController = navController,
-                newsViewModel = newsViewModel
-            )
+            when {
+                isTopics -> {
+                    topicsState.value.also {
+                        when (it) {
+                            is TopicsUiState.Loading -> {
+                                when {
+                                    it.loading -> LottieLoader(textColor = textColor)
+                                }
+                            }
+
+                            is TopicsUiState.Error -> {
+                                ErrorMessage(title = it.title, message = it.message, textColor = textColor)
+                            }
+
+                            is TopicsUiState.TopicsContent -> {
+                                TrendingContent(
+                                    trending = it.topicsResults,
+                                    textColor = textColor,
+                                    navController = navController,
+                                    newsViewModel = newsViewModel
+                                )
+                            }
+                        }
+                    }
+                }
+
+                else -> {
+                    TrendingContent(
+                        trending = items,
+                        textColor = textColor,
+                        navController = navController,
+                        newsViewModel = newsViewModel
+                    )
+                }
+            }
         }
     }
 }
