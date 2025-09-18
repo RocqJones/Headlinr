@@ -57,7 +57,7 @@ class SearchViewModel(private val repository: NewsRepository) : BaseViewModel() 
                         _searchState.emit(SearchUiState.Loading(loading = false))
                         _searchState.emit(
                             SearchUiState.Error(
-                                title = "Error fetching topic",
+                                title = "Error fetching $query",
                                 message = response.status ?: "Unknown error"
                             )
                         )
@@ -67,7 +67,7 @@ class SearchViewModel(private val repository: NewsRepository) : BaseViewModel() 
                 _searchState.emit(SearchUiState.Loading(loading = false))
                 _searchState.emit(
                     SearchUiState.Error(
-                        title = "Exception while fetching topic",
+                        title = "Exception while fetching $query",
                         message = e.message ?: "Unknown error"
                     )
                 )

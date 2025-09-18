@@ -164,7 +164,11 @@ fun SearchScreen(
                         val results = (searchState as SearchUiState.SearchContent).searchResults
 
                         MediumText(
-                            text = "Found ${results.size} results for \"$searchQuery\"",
+                            text = stringResource(
+                                R.string.found_results_for,
+                                results.size,
+                                searchQuery
+                            ),
                             textColor = textColor,
                             textAlign = TextAlign.Start
                         )
