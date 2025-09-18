@@ -60,7 +60,7 @@ fun HomeScreen(
                 scrollBehavior = scrollBehavior,
                 topBarColor = backgroundColor,
                 onMenuClick = { showMenuBottomSheet = true },
-                onSearchClicked = { /* */ },
+                onSearchClicked = { navController.navigate(Screen.SearchScreen.route) },
                 onProfileClicked = { showProfileBottomSheet = true }
             )
         }

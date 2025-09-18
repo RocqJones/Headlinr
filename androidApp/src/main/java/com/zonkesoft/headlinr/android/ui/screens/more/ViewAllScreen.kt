@@ -45,7 +45,6 @@ fun ViewAllScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
-                .verticalScroll(rememberScrollState())
         ) {
             Row(
                 modifier = Modifier.clickable { navController.popBackStack() },
@@ -84,24 +83,36 @@ fun ViewAllScreen(
                             }
 
                             is TopicsUiState.TopicsContent -> {
-                                TrendingContent(
-                                    trending = it.topicsResults,
-                                    textColor = textColor,
-                                    navController = navController,
-                                    newsViewModel = newsViewModel
-                                )
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .verticalScroll(rememberScrollState())
+                                ) {
+                                    TrendingContent(
+                                        trending = it.topicsResults,
+                                        textColor = textColor,
+                                        navController = navController,
+                                        newsViewModel = newsViewModel
+                                    )
+                                }
                             }
                         }
                     }
                 }
 
                 else -> {
-                    TrendingContent(
-                        trending = items,
-                        textColor = textColor,
-                        navController = navController,
-                        newsViewModel = newsViewModel
-                    )
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .verticalScroll(rememberScrollState())
+                    ) {
+                        TrendingContent(
+                            trending = items,
+                            textColor = textColor,
+                            navController = navController,
+                            newsViewModel = newsViewModel
+                        )
+                    }
                 }
             }
         }

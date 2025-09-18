@@ -2,6 +2,7 @@ package com.zonkesoft.headlinr.android.di
 
 import com.zonkesoft.headlinr.presentation.vm.InterfaceViewModel
 import com.zonkesoft.headlinr.presentation.vm.NewsViewModel
+import com.zonkesoft.headlinr.presentation.vm.SearchViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -12,4 +13,5 @@ import org.koin.dsl.module
 val viewModelsModule = module {
     viewModel { InterfaceViewModel() }
     viewModel { NewsViewModel(get()) }
+    viewModel { SearchViewModel(get()) }
 }
