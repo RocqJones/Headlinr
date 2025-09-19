@@ -6,13 +6,14 @@ import com.zonkesoft.headlinr.presentation.state.SearchUiState
 import com.zonkesoft.headlinr.utils.Constants
 import com.zonkesoft.headlinr.utils.HelperUtil
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class SearchViewModel(private val repository: NewsRepository) : BaseViewModel() {
 
     private val _searchState: MutableStateFlow<SearchUiState> =
         MutableStateFlow(SearchUiState.Loading(loading = true))
-    val searchState = _searchState
+    val searchState = _searchState.asStateFlow()
 
     private val _recentSearches = MutableStateFlow<List<String>>(emptyList())
     val recentSearches = _recentSearches
