@@ -3,7 +3,7 @@
 
 **Headlinr** is a modern, cross-platform news app built with Kotlin Multiplatform Mobile (KMM). It provides users with the latest headlines and breaking stories from around the world in real time. Powered by [NewsAPI](https://newsapi.org/), Headlinr aggregates top news from multiple reliable sources and offers a clean, intuitive reading experience across Android and iOS.
 
-The app allows users to filter news by country and category, view article details, and stay informed even when offline (upcoming). It’s designed with simplicity, speed, and personalization in mind, making it the ideal daily companion for staying in the loop.
+The app enables users to filter news by country and category, view article details, and stay informed even when offline (coming soon). It’s designed with simplicity, speed, and personalization in mind, making it the ideal daily companion for staying up-to-date.
 
 ---
 
@@ -91,6 +91,7 @@ shared/
 3. **Get your NewsAPI key** from [https://newsapi.org](https://newsapi.org) and add it to your config.
 
 4. **Build & run** on Android emulator or iOS simulator.
+5. Other links: [Logo- Canva](https://www.canva.com/design/DAGmlLuVt7k/_2bRxoKA2qySs1OJrP9IcQ/) & [design inspiration](https://app.visily.ai/projects/3f1101b3-b360-464c-8e80-bc8d50565325/boards/1892526)
 
 ---
 
