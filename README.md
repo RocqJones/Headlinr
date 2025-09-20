@@ -8,60 +8,60 @@ The app enables users to filter news by country and category, view article detai
 ---
 
 ## ✨ Features
-- Display latest news headlines
+- Display breaking news
 - View full article details
-- Filter by country
-- Filter by topic/category
-- View the list of news sources
-- Offline screen for network loss
+- Filter by topics/categories
+- Search by query
+- Offline capability
+- Localisation (default based on location/country unless manually set)
 
 ---
 
 ## 🗺️ Project Roadmap
 
 **Phase 1 – Core Features**
-- Show the latest news list.
-- Can view more details from headlines.
-- Filter by relevant country.
-- Filter by topics. (Bottom sheets).
-- Show Sources.
-- Offline feature.
+- [x] Show the latest news list: Headlines, Trending, & highlights
+- [x] Can view more details based on the selection item.
+- [x] Filter by topics.
+- [ ] Search relevant news.
+- [ ] Deploy Android app to the Play Store
 
-**Phase 2 – Personalization & Persistence**
-- Subscribe to breaking news and topics via notifications.
-- Notifications screen.
-- Introduce location to show relevant news by default.
-- Introduce offline SQLDelight support.
+**Phase 2 – Monetization & Support**
+- [ ] Run in-app ads to generate revenue.
+- [ ] Add a donation option for users to support development.
 
-**Phase 3 – Discovery & Automation**
-- Roll out search functionality for specific news or topics.
-- Introduce voice search as a bonus feature.
-- Automate publishing for both Android and iOS.
+**Phase 3 – Personalization & Persistence**
+- [ ] Subscribe to breaking news and topics via notifications.
+- [ ] Notifications setup.
+- [ ] Introduce GPS location to show relevant news based on location.
+- [ ] Introduce offline support: SQLDelight.
 
-**Phase 4 – Monetization & Support**
-- Run in-app ads to generate revenue.
-- Add a donation option for users to support development.
+**Phase 4 – Discovery & Automation**
+- [ ] Introduce reading assistant.
+- [ ] Automate publishing for both Android and iOS.
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Technology
 
-- **Kotlin Multiplatform Mobile (KMM)**
+- **Kotlin Multiplatform Mobile (KMP)**
 - **Jetpack Compose** (Android UI)
-- **SwiftUI** (iOS UI, optionally via shared logic)
-- **NewsAPI** – for real-time news feeds
+- **SwiftUI** (iOS UI)
+- **Koin** - Dependency injection
 - **Ktor** – for networking
 - **Coroutines & Flow** – for async and reactive programming
-- **SQLDelight** – for offline persistence (Planned Phase 2)
+- **SQLDelight** – for offline persistence
+- **MVVM** architecture
+- **NewsAPI** – for real-time news source
 
 ---
 
-## 🗂️ Project Structure (MVVM – KMM)
+## 🗂️ Project Structure (KMP)
 ```bash
 shared/
 ├── src/
 │   ├── commonMain/
-│   │   └── com/domain/yourapp/
+│   │   └── com/domain/ourapp/
 │   │       ├── data/
 │   │       │   ├── model/           # Data models (DTOs, entities)
 │   │       │   ├── repository/      # Repository interfaces & implementations
@@ -73,8 +73,26 @@ shared/
 │   │       │   ├── state/           # UI state holders
 │   │       ├── util/                # Extensions, helpers, constants
 │
-│   ├── androidMain/                 # Android-specific code
-│   ├── iosMain/                     # iOS-specific code
+│   ├── androidMain/
+│   │   └── com/domain/ourapp/
+│   │       ├── config/            # Android-specific configuration
+│   │       ├── utils/             # Android-only utilities
+│   │       ├── di/                # Android-specific DI modules
+│   │       ├── ui/                # Android UI layer
+│   │           ├── common/        # Reusable Android UI components
+│   │           ├── navigation/    # Navigation (Jetpack Compose/NavHost)
+│   │           ├── screens/       # Android feature screens
+│   │           ├── theme/         # Android theming (Compose theme setup)
+│
+│   ├── iosMain/
+│   │   └── com/domain/ourapp/
+│   │       ├── Assets/            # iOS resources (images, colors, strings)
+│   │       ├── ui/                # iOS UI layer
+│   │           ├── screens/       # iOS feature screens
+│   │           ├── theme/         # iOS theming (colors, typography, spacing)
+│   │           ├── common/        # Reusable UI & wrappers
+│   │               ├── contents/  # Reusable UI components (buttons, loaders)
+│   │               ├── wrapper/   # Wraps shared ViewModels/state into SwiftUI
 
 ```
 
