@@ -58,41 +58,37 @@ The app enables users to filter news by country and category, view article detai
 
 ## 🗂️ Project Structure (KMP)
 ```bash
-shared/
-├── src/
-│   ├── commonMain/
-│   │   └── com/domain/ourapp/
-│   │       ├── data/
-│   │       │   ├── model/           # Data models (DTOs, entities)
-│   │       │   ├── repository/      # Repository interfaces & implementations
-│   │       ├── di/                  # Dependency injection (Koin modules)
-│   │       ├── network/
-│   │       │   ├── service/         # Ktor services / API clients
-│   │       ├── presentation/
-│   │       │   ├── vm/              # Shared ViewModels
-│   │       │   ├── state/           # UI state holders
-│   │       ├── util/                # Extensions, helpers, constants
+shared/                          # Shared KMP business logic
+├── commonMain/
+│   └── com/domain/ourapp/
+│       ├── data/              # Data models & repositories
+│       ├── di/                # Dependency injection (shared modules)
+│       ├── network/           # Network layer (API clients)
+│       ├── presentation/      # Shared ViewModels & UI state
+│       ├── util/              # Extensions, helpers, constants
 │
-│   ├── androidMain/
-│   │   └── com/domain/ourapp/
-│   │       ├── config/            # Android-specific configuration
-│   │       ├── utils/             # Android-only utilities
-│   │       ├── di/                # Android-specific DI modules
-│   │       ├── ui/                # Android UI layer
-│   │           ├── common/        # Reusable Android UI components
-│   │           ├── navigation/    # Navigation (Jetpack Compose/NavHost)
-│   │           ├── screens/       # Android feature screens
-│   │           ├── theme/         # Android theming (Compose theme setup)
+androidApp/                      # Android-specific layer
+├── androidMain/
+│   └── com/domain/ourapp/
+│       ├── config/            # Android-specific configuration
+│       ├── utils/             # Android-only utilities
+│       ├── di/                # Android-specific DI modules
+│       ├── ui/                # Android UI layer
+│           ├── common/        # Reusable Android UI components
+│           ├── navigation/    # Navigation (Compose NavHost, routes)
+│           ├── screens/       # Android feature screens
+│           ├── theme/         # Android theming (Compose theme setup)
 │
-│   ├── iosMain/
-│   │   └── com/domain/ourapp/
-│   │       ├── Assets/            # iOS resources (images, colors, strings)
-│   │       ├── ui/                # iOS UI layer
-│   │           ├── screens/       # iOS feature screens
-│   │           ├── theme/         # iOS theming (colors, typography, spacing)
-│   │           ├── common/        # Reusable UI & wrappers
-│   │               ├── contents/  # Reusable UI components (buttons, loaders)
-│   │               ├── wrapper/   # Wraps shared ViewModels/state into SwiftUI
+iosApp/                          # iOS-specific layer
+├── iosMain/
+│   └── com/domain/ourapp/
+│       ├── Assets/            # iOS resources (images, colors, strings)
+│       ├── ui/                # iOS UI layer
+│           ├── screens/       # iOS feature screens
+│           ├── theme/         # iOS theming (colors, typography)
+│           ├── common/        # Reusable iOS UI components
+│               ├── contents/  # Reusable UI components (buttons, dialogs, etc)
+│               ├── wrapper/   # Wraps shared ViewModels/state into SwiftUI
 
 ```
 
