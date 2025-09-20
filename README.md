@@ -3,78 +3,92 @@
 
 **Headlinr** is a modern, cross-platform news app built with Kotlin Multiplatform Mobile (KMM). It provides users with the latest headlines and breaking stories from around the world in real time. Powered by [NewsAPI](https://newsapi.org/), Headlinr aggregates top news from multiple reliable sources and offers a clean, intuitive reading experience across Android and iOS.
 
-The app allows users to filter news by country and category, view article details, and stay informed even when offline (upcoming). It’s designed with simplicity, speed, and personalization in mind, making it the ideal daily companion for staying in the loop.
+The app enables users to filter news by country and category, view article details, and stay informed even when offline (coming soon). It’s designed with simplicity, speed, and personalization in mind, making it the ideal daily companion for staying up-to-date.
 
 ---
 
 ## ✨ Features
-- Display latest news headlines
+- Display breaking news
 - View full article details
-- Filter by country
-- Filter by topic/category
-- View the list of news sources
-- Offline screen for network loss
+- Filter by topics/categories
+- Search by query
+- Offline capability
+- Localisation (default based on location/country unless manually set)
 
 ---
 
 ## 🗺️ Project Roadmap
 
 **Phase 1 – Core Features**
-- Show the latest news list.
-- Can view more details from headlines.
-- Filter by relevant country.
-- Filter by topics. (Bottom sheets).
-- Show Sources.
-- Offline feature.
+- [x] Show the latest news list: Headlines, Trending, & highlights
+- [x] Can view more details based on the selection item.
+- [x] Filter by topics.
+- [ ] Search relevant news.
+- [ ] Deploy Android app to the Play Store
 
-**Phase 2 – Personalization & Persistence**
-- Subscribe to breaking news and topics via notifications.
-- Notifications screen.
-- Introduce location to show relevant news by default.
-- Introduce offline SQLDelight support.
+**Phase 2 – Monetization & Support**
+- [ ] Run in-app ads to generate revenue.
+- [ ] Add a donation option for users to support development.
 
-**Phase 3 – Discovery & Automation**
-- Roll out search functionality for specific news or topics.
-- Introduce voice search as a bonus feature.
-- Automate publishing for both Android and iOS.
+**Phase 3 – Personalization & Persistence**
+- [ ] Subscribe to breaking news and topics via notifications.
+- [ ] Notifications setup.
+- [ ] Introduce GPS location to show relevant news based on location.
+- [ ] Introduce offline support: SQLDelight.
 
-**Phase 4 – Monetization & Support**
-- Run in-app ads to generate revenue.
-- Add a donation option for users to support development.
+**Phase 4 – Discovery & Automation**
+- [ ] Introduce reading assistant.
+- [ ] Automate publishing for both Android and iOS.
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Technology
 
-- **Kotlin Multiplatform Mobile (KMM)**
+- **Kotlin Multiplatform Mobile (KMP)**
 - **Jetpack Compose** (Android UI)
-- **SwiftUI** (iOS UI, optionally via shared logic)
-- **NewsAPI** – for real-time news feeds
+- **SwiftUI** (iOS UI)
+- **Koin** - Dependency injection
 - **Ktor** – for networking
 - **Coroutines & Flow** – for async and reactive programming
-- **SQLDelight** – for offline persistence (Planned Phase 2)
+- **SQLDelight** – for offline persistence
+- **MVVM** architecture
+- **NewsAPI** – for real-time news source
 
 ---
 
-## 🗂️ Project Structure (MVVM – KMM)
+## 🗂️ Project Structure (KMP)
 ```bash
-shared/
-├── src/
-│   ├── commonMain/
-│   │   └── com/domain/yourapp/
-│   │       ├── data/
-│   │       │   ├── model/           # Data models (DTOs, entities)
-│   │       │   ├── repository/      # Repository interfaces & implementations
-│   │       ├── di/                  # Dependency injection (Koin modules)
-│   │       ├── network/
-│   │       │   ├── service/         # Ktor services / API clients
-│   │       ├── presentation/
-│   │       │   ├── vm/              # Shared ViewModels
-│   │       │   ├── state/           # UI state holders
-│   │       ├── util/                # Extensions, helpers, constants
+shared/                          # Shared KMP business logic
+├── commonMain/
+│   └── com/domain/ourapp/
+│       ├── data/              # Data models & repositories
+│       ├── di/                # Dependency injection (shared modules)
+│       ├── network/           # Network layer (API clients)
+│       ├── presentation/      # Shared ViewModels & UI state
+│       ├── util/              # Extensions, helpers, constants
 │
-│   ├── androidMain/                 # Android-specific code
-│   ├── iosMain/                     # iOS-specific code
+androidApp/                      # Android-specific layer
+├── androidMain/
+│   └── com/domain/ourapp/
+│       ├── config/            # Android-specific configuration
+│       ├── utils/             # Android-only utilities
+│       ├── di/                # Android-specific DI modules
+│       ├── ui/                # Android UI layer
+│           ├── common/        # Reusable Android UI components
+│           ├── navigation/    # Navigation (Compose NavHost, routes)
+│           ├── screens/       # Android feature screens
+│           ├── theme/         # Android theming (Compose theme setup)
+│
+iosApp/                          # iOS-specific layer
+├── iosMain/
+│   └── com/domain/ourapp/
+│       ├── Assets/            # iOS resources (images, colors, strings)
+│       ├── ui/                # iOS UI layer
+│           ├── screens/       # iOS feature screens
+│           ├── theme/         # iOS theming (colors, typography)
+│           ├── common/        # Reusable iOS UI components
+│               ├── contents/  # Reusable UI components (buttons, dialogs, etc)
+│               ├── wrapper/   # Wraps shared ViewModels/state into SwiftUI
 
 ```
 
@@ -91,6 +105,7 @@ shared/
 3. **Get your NewsAPI key** from [https://newsapi.org](https://newsapi.org) and add it to your config.
 
 4. **Build & run** on Android emulator or iOS simulator.
+5. Other links: [Logo- Canva](https://www.canva.com/design/DAGmlLuVt7k/_2bRxoKA2qySs1OJrP9IcQ/) & [design inspiration](https://app.visily.ai/projects/3f1101b3-b360-464c-8e80-bc8d50565325/boards/1892526)
 
 ---
 
