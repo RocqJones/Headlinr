@@ -12,12 +12,6 @@ object Constants {
     internal val apiKey: String
         get() {
             val key = PlatformImplementation().getApiKey()
-            /*Logger.debug("Constants", "API Key accessed: ${
-                when {
-                    key.isNotEmpty() -> "✅ Available (${key.length} chars)"
-                    else -> "❌ Empty"
-                }
-            }")*/
             return key
         }
 }
