@@ -2,13 +2,14 @@ package com.zonkesoft.headlinr.di
 
 import com.zonkesoft.headlinr.presentation.vm.InterfaceViewModel
 import com.zonkesoft.headlinr.presentation.vm.NewsViewModel
+import com.zonkesoft.headlinr.presentation.vm.SearchViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin
 
 fun initKoin() {
     // iOS does not have any VM specific module like Android
-    val module =  sharedKoinModule
+    val module = sharedKoinModule
 
     startKoin {
         modules(module)
@@ -21,6 +22,7 @@ fun initKoin() {
  *
  * @see InterfaceViewModel
  * @see NewsViewModel
+ * @see SearchViewModel
  */
 class InterfaceInjector : KoinComponent {
     val interfaceViewModel: InterfaceViewModel by inject()
@@ -28,4 +30,8 @@ class InterfaceInjector : KoinComponent {
 
 class NewsInjector : KoinComponent {
     val newsViewModel: NewsViewModel by inject()
+}
+
+class SearchInjector : KoinComponent {
+    val searchViewModel: SearchViewModel by inject()
 }
