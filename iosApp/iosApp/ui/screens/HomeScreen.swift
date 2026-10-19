@@ -12,11 +12,13 @@ import shared
 struct HomeScreen: View {
     @ObservedObject private(set) var interfaceViewModelWrapper: InterfaceViewModelWrapper
     @ObservedObject private(set) var newsViewModelWrapper: NewsViewModelWrapper
+    @StateObject private var searchViewModelWrapper = SearchViewModelWrapper()
 
     @State private var showMenuSheet = false
     @State private var showProfileSheet = false
     @State private var navigateToViewMore = false
     @State private var navigateToViewAll = false
+    @State private var navigateToSearch = false
 
     var body: some View {
         NavigationStack {
@@ -87,7 +89,7 @@ struct HomeScreen: View {
                     }
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button(action: {}) {
+                    Button(action: { navigateToSearch = true }) {
                         Image(systemName: "magnifyingglass")
                     }
                     Button(action: { showProfileSheet = true }) {
@@ -115,6 +117,12 @@ struct HomeScreen: View {
             }
             .navigationDestination(isPresented: $navigateToViewAll) {
                 ViewAllScreen(newsViewModelWrapper: newsViewModelWrapper)
+            }
+            .navigationDestination(isPresented: $navigateToSearch) {
+                SearchScreen(
+                    searchViewModelWrapper: searchViewModelWrapper,
+                    newsViewModelWrapper: newsViewModelWrapper
+                )
             }
         }
     }

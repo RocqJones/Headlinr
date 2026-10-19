@@ -8,5 +8,10 @@ object Constants {
     internal const val everythingEndpoint = "/everything"
     internal const val all = "all"
     internal const val trending = "trending"
-    internal val apiKey = PlatformImplementation().getApiKey()
+
+    internal val apiKey: String
+        get() {
+            val key = PlatformImplementation().getApiKey()
+            return key
+        }
 }

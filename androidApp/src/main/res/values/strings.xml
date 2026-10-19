@@ -17,4 +17,11 @@
     <string name="source">Source</string>
     <string name="dd_mm_yyyy">DD/MM/YYYY HH:MM</string>
     <string name="read_more_at">Read more at…</string>
+    <string name="back">Back</string>
+    <string name="feature_search_clear_search_text_content_desc">Clear search text</string>
+    <string name="feature_search_title">Search…</string>
+    <string name="feature_search_not_ready">Sorry, we are still processing the search index. Please come back later</string>
+    <string name="feature_search_recent_searches">Recent searches</string>
+    <string name="feature_search_clear_recent_searches_content_desc">Clear all searches</string>
+    <string name="found_results_for">Found %1$d results for \"%2$s\"</string>
 </resources>

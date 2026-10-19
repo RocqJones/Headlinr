@@ -26,6 +26,7 @@ import com.zonkesoft.headlinr.android.ui.screens.more.ViewMoreScreen
 import com.zonkesoft.headlinr.android.ui.theme.MyApplicationTheme
 import com.zonkesoft.headlinr.presentation.vm.InterfaceViewModel
 import com.zonkesoft.headlinr.presentation.vm.NewsViewModel
+import com.zonkesoft.headlinr.presentation.vm.SearchViewModel
 import org.koin.androidx.compose.getViewModel
 
 class MainActivity : ComponentActivity() {
@@ -51,7 +52,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun NavigationGraph(
     interfaceViewModel: InterfaceViewModel = getViewModel(),
-    newsViewModel: NewsViewModel = getViewModel()
+    newsViewModel: NewsViewModel = getViewModel(),
+    searchViewModel: SearchViewModel = getViewModel()
 ) {
     val currentContext = LocalContext.current
     val textColor = MaterialTheme.colorScheme.onBackground
@@ -80,6 +82,13 @@ fun NavigationGraph(
                 modifier = Modifier.fillMaxSize().padding(WindowInsets.statusBars.asPaddingValues())
             ) {
                 ViewAllScreen(navController, textColor, newsViewModel)
+            }
+        }
+        composable(Screen.SearchScreen.route) {
+            Box(
+                modifier = Modifier.fillMaxSize().padding(WindowInsets.statusBars.asPaddingValues())
+            ) {
+                SearchScreen(navController, textColor, searchViewModel, newsViewModel)
             }
         }
     }
